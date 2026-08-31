@@ -1,44 +1,33 @@
 # Project State
 
-Status: **V0 frozen and repository bootstrapped after final loose-end audit**
+**Status:** Canonical V0 architecture frozen; documentation hardening in progress before M001 implementation.
 
-Current DB schema version: **2**
+**Current DB schema version:** 2
 
-Active milestone: **M001 — Corpus In → First Attempt Out**
+**Active milestone:** M001 — Corpus In → First Attempt Out
 - GitHub issue: `#1`
-- working branch: `codex/m001-foundation`
+- implementation branch: `codex/m001-foundation`
+- documentation hardening branch: `docs/canonical-v0-hardening`
 
-## M001 acceptance test
-- Import >= 1,000 structured questions into SQLite.
-- Import 1 official VUNESP exam + final answer key through independent staging paths.
-- Preserve shared stimulus/media references or quarantine unresolved items.
-- Zero silent parser failures: unresolved records are present in the ingestion ledger.
-- Prevent source duplicates and alternate booklets from inflating historical recurrence.
-- Start a local practice session in browser.
-- Record answer, response status, response time, confidence and scoring snapshot.
-- Persist attempt and show topic-level result.
+## Current truth
 
-## Frozen structural safeguards
-- exam vs exam form/booklet separated
-- canonical option content vs occurrence label/order separated
-- official bank key vs reference answer separated
-- source duplicate vs cross-exam repeat separated
-- legal authority versioned by date and linked to occurrences
-- staging/quarantine ledger exists
-- source rights/privacy metadata exists
-- user/AI questions can exist without official exam occurrences
-- session item order is persisted for reproducibility
-- identity/presentation hashing is explicitly versioned
-- stimulus media has provenance locators
-- ordered idempotent migration runner exists
-- backup requirement for non-rebuildable candidate evidence is documented
+- Product north star and four intelligence domains are defined.
+- Source-agnostic ingestion, provenance, staging/quarantine and rights rules are frozen.
+- Question identity / occurrence / exam-form / source-duplicate semantics are frozen.
+- Legitimate cross-exam exact recurrence is preserved as predictive evidence.
+- Official bank keys are versioned and separate from universal/legal truth.
+- Atomic Tree / source-faithful syllabus model is frozen conceptually.
+- Mini-QC modes and candidate telemetry contract are defined.
+- Knowledge Pipeline, Learning Intelligence, Question Learning Packet, FSRS and Decision Engine are documented as future layers, not M001 scope.
+- SQLite migration runner exists through schema v2.
+- M001 has an explicit definition of done and required semantic fixtures.
 
-## Deferred until after M001
-- Semantic question-family clustering.
-- Deep Question Learning Packets.
-- Legal source auto-verification.
-- FSRS flashcard UI.
-- Adaptive scheduler / Today page.
-- Knowledge-ingestion pipeline for OQF/Benites.
-- Bank Trap DNA.
-- IRT/TRI.
+## Immediate next action
+
+1. Merge canonical documentation hardening after review.
+2. Fast-forward/sync `codex/m001-foundation` to the hardened `main`.
+3. Execute M001 only; do not expand into M002+ features.
+
+## Deferred
+
+Semantic question-family clustering, deep learning packets, automatic legal verification, FSRS UI, Learning Canon ingestion, Bank Trap DNA, advanced mastery models and IRT/TRI remain post-M001.
