@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "exam-intelligence/answer-key-batch-v0",
+  "title": "Exam Intelligence Answer Key Batch V0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source", "exam", "key_version", "answers"],
+  "properties": {
+    "schema_version": {"const": 0},
+    "source": {"$ref": "question_batch_v0.schema.json#/$defs/source"},
+    "exam": {"$ref": "question_batch_v0.schema.json#/$defs/exam"},
+    "key_version": {"type": "string", "minLength": 1},
+    "published_at": {"type": ["string", "null"]},
+    "answers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["number", "status"],
+        "properties": {
+          "number": {"type": ["string", "integer"]},
+          "status": {"enum": ["provisional", "final", "changed", "annulled"]},
+          "official_response": {"type": ["string", "array", "number", "boolean", "null"]},
+          "raw_locator": {"type": ["string", "null"]},
+          "notes": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}
