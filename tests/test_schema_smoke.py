@@ -4,22 +4,25 @@ import sqlite3
 
 import jsonschema
 
+from exam_intelligence.db import migrate
+
 
 def root() -> Path:
     return Path(__file__).parents[1]
 
 
-def test_v0_schema_loads():
-    sql = (root() / "db" / "migrations" / "0001_v0.sql").read_text(encoding="utf-8")
+def test_v0_migrations_load_and_are_idempotent():
     conn = sqlite3.connect(":memory:")
-    conn.executescript(sql)
+    assert migrate(conn, root()) == 2
+    assert migrate(conn, root()) == 2
     tables = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
     expected = {
         "question", "question_occurrence", "occurrence_option", "answer_key",
         "exam_form", "ingestion_record", "taxonomy_node", "session_item",
-        "attempt", "legal_authority_version", "occurrence_authority",
+        "attempt", "legal_authority_version", "occurrence_authority", "stimulus_asset",
     }
     assert expected <= tables
+    assert conn.execute("SELECT value FROM schema_meta WHERE key='schema_version'").fetchone()[0] == "2"
 
 
 def test_question_staging_schema_accepts_minimal_mcq():
