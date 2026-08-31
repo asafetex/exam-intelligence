@@ -21,7 +21,9 @@ Build a local-first exam intelligence system whose output is a better next study
 15. Legal authority is time-versioned and occurrence-grounded. Never attach a timeless legal interpretation to a historical item.
 16. Imported proprietary/question-bank data, paid-course material, candidate performance data and secrets are LOCAL/PRIVATE by default and must not be committed to a public repository.
 17. If donor code is copied/adapted, preserve its license/notice and record it in `THIRD_PARTY_NOTICES.md`.
-18. Every new feature must answer: can this change what the candidate studies, how they study, or how they answer?
+18. Identity/normalization rules are versioned; never change hashing semantics silently. Persist timestamps as timezone-aware UTC ISO-8601.
+19. Back up non-rebuildable candidate evidence before destructive migrations.
+20. Every new feature must answer: can this change what the candidate studies, how they study, or how they answer?
 
 ## Current stack
 - Python 3.11+
