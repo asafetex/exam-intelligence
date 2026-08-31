@@ -1,8 +1,12 @@
 # Project State
 
-Status: **V0 frozen after final loose-end audit**
+Status: **V0 frozen and repository bootstrapped after final loose-end audit**
 
-Next milestone: **M001 — Corpus In → First Attempt Out**
+Current DB schema version: **2**
+
+Active milestone: **M001 — Corpus In → First Attempt Out**
+- GitHub issue: `#1`
+- working branch: `codex/m001-foundation`
 
 ## M001 acceptance test
 - Import >= 1,000 structured questions into SQLite.
@@ -24,6 +28,10 @@ Next milestone: **M001 — Corpus In → First Attempt Out**
 - source rights/privacy metadata exists
 - user/AI questions can exist without official exam occurrences
 - session item order is persisted for reproducibility
+- identity/presentation hashing is explicitly versioned
+- stimulus media has provenance locators
+- ordered idempotent migration runner exists
+- backup requirement for non-rebuildable candidate evidence is documented
 
 ## Deferred until after M001
 - Semantic question-family clustering.
