@@ -6,6 +6,9 @@ This directory is the durable source of truth for Exam Intelligence. Chat histor
 
 | Need | Read |
 |---|---|
+| Recover the full conversation-level project context? | `PROJECT_CONTEXT_CANON.md` |
+| Verify conversation → repository parity? | `CONTEXT_PARITY_AUDIT.md` |
+| Start a fresh Codex/VS Code session? | `CODEX_CONTEXT_HANDOFF.md` |
 | What is the project? | `PRODUCT_VISION.md` |
 | What principles cannot drift? | `PROJECT_PRINCIPLES.md` |
 | What is true right now? | `PROJECT_STATE.md` |
@@ -38,6 +41,9 @@ This directory is the durable source of truth for Exam Intelligence. Chat histor
 | What terms mean? | `GLOSSARY.md` |
 
 ## Documentation classes
+
+### Context bridge
+`PROJECT_CONTEXT_CANON.md` preserves the conversation-level rationale, examples, rejected paths and conceptual evolution that may not belong inside a narrow normative spec. `CONTEXT_PARITY_AUDIT.md` records whether material project decisions from ChatGPT are durably represented. These files exist so Codex/VS Code never require access to chat history.
 
 ### Canonical product/architecture
 Normative. Implementation should conform or update the document via reviewed change.
