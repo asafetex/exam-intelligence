@@ -81,6 +81,19 @@ Verticalized edital remains source-faithful while mapping into the canonical Ato
 ### question_family / question_family_member
 Reserved for semantic recurrence; V0 can leave empty.
 
+### Recurrence semantics — frozen rule
+Recurrence is evidence, not a deduplication artifact.
+
+- **Source duplicate:** the same official occurrence imported from multiple providers/files (for example API + official PDF) remains **one `question_occurrence`** with multiple source links. It must not increase recurrence.
+- **Booklet/form duplicate:** the same item appearing in multiple cadernos/forms of the **same exam event** must not be counted as independent historical recurrence. `exam_form` + occurrence reconciliation protects this.
+- **True cross-exam exact repetition:** if the same canonical `question` appears in genuinely different exam events/years, preserve **one canonical question with multiple `question_occurrence` rows**. Each independent exam occurrence is a real recurrence signal.
+- **Semantic recurrence:** different questions that test the same underlying proposition/pattern may later be grouped in `question_family`; family recurrence is distinct from exact repetition.
+- **Atomic-topic recurrence:** frequency at taxonomy-node level is a third, broader signal and must not be conflated with exact-question or family recurrence.
+
+Therefore, deduplication removes duplicated representations of the **same occurrence**, never legitimate repeated use of an item across different exams.
+
+Future analytics should expose these separately, e.g. `source_count`, `exam_occurrence_count`, `exact_repeat_count`, `family_recurrence_count`, and topic-level incidence. Historical recurrence may raise priority, but never implies certainty that the item will appear again.
+
 ## Assessment / candidate evidence
 ### practice_session
 Mode, target/scoring snapshot, random seed and filter snapshot.
