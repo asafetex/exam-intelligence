@@ -41,13 +41,13 @@ Booklet/caderno/version inside the same exam. Prevents alternate forms from infl
 Shared passage/table/figure/context used by one or many questions.
 
 ### question
-Canonical semantic item identity. `identity_hash` ignores option label/order but includes normalized stem, option-content set and relevant stimulus identity.
+Canonical semantic item identity. `identity_hash` ignores option label/order but includes normalized stem, option-content set and relevant stimulus identity. Identity rules are versioned by `identity_version`.
 
 ### question_option
 Canonical option content, without A/B/C labels.
 
-### question_stimulus
-Question ↔ stimulus relation.
+### question_stimulus / stimulus_asset
+Question ↔ stimulus relation plus source/media assets with locators (page/bbox/file).
 
 ### question_occurrence
 The item appearing in one exam form. Holds original stem/presentation hash and item weight.
