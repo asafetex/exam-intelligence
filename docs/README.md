@@ -1,6 +1,6 @@
 # Canonical Documentation Map
 
-This directory is the durable source of truth for Exam Intelligence. The chat history is design context; the repository is the executable memory of the project.
+This directory is the durable source of truth for Exam Intelligence. Chat history is design context; the repository is the executable memory of the project.
 
 ## Start here
 
@@ -10,14 +10,21 @@ This directory is the durable source of truth for Exam Intelligence. The chat hi
 | What principles cannot drift? | `PROJECT_PRINCIPLES.md` |
 | What is true right now? | `PROJECT_STATE.md` |
 | What is the overall architecture? | `SYSTEM_ARCHITECTURE.md` |
+| How should code modules be organized? | `IMPLEMENTATION_MAP.md` |
 | What entities exist and why? | `DOMAIN_MODEL.md` + `DATA_MODEL.md` |
 | How does corpus ingestion work? | `INGESTION_ENGINE.md` |
 | How do duplicate/repeated questions work? | `QUESTION_IDENTITY_AND_RECURRENCE.md` |
+| How are question structures/distractors modeled? | `QUESTION_TAXONOMY.md` |
 | How is the edital represented? | `ATOMIC_TREE_AND_SYLLABUS.md` |
+| How does scoring differ by exam? | `SCORING_POLICIES.md` |
 | How does Mini-QC work? | `ASSESSMENT_ENGINE.md` |
 | What do we infer about the candidate? | `CANDIDATE_MODEL.md` |
+| How are candidate errors classified? | `ERROR_TAXONOMY.md` |
 | How will course/science knowledge be ingested? | `KNOWLEDGE_PIPELINE.md` |
-| How do interventions/periodization work? | `LEARNING_INTELLIGENCE.md` |
+| How do we grade evidence quality? | `EVIDENCE_FRAMEWORK.md` |
+| Which interventions exist? | `INTERVENTION_LIBRARY.md` |
+| How does preparation phase alter study? | `PERIODIZATION_ENGINE.md` |
+| How do learning interventions work? | `LEARNING_INTELLIGENCE.md` |
 | What ultimately chooses the next action? | `DECISION_ENGINE.md` |
 | What is the rich post-question model? | `QUESTION_LEARNING_PACKET.md` |
 | How do banks differ? | `BANK_DNA.md` |
@@ -36,13 +43,13 @@ This directory is the durable source of truth for Exam Intelligence. The chat hi
 Normative. Implementation should conform or update the document via reviewed change.
 
 ### ADRs (`adr/`)
-Why important choices were made. ADRs preserve the reasoning even if a later ADR supersedes the decision.
+Why important choices were made. ADRs preserve reasoning even when later superseded.
 
 ### Benchmarks (`benchmarks/`)
-What products/repositories do well and what is applicable. Benchmark findings are **inputs**, not automatic requirements.
+What products/repositories do well and what is applicable. Benchmark findings are inputs, not automatic requirements.
 
 ### Research (`research/`)
-Scientific/practitioner evidence. Research claims must preserve source/evidence strength and should not silently become product facts.
+Scientific/practitioner evidence. Claims preserve source/evidence strength and do not silently become product facts.
 
 ### Project state
 `PROJECT_STATE.md` stays short, operational and current. It must not become a duplicate architecture document.
