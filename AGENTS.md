@@ -14,15 +14,31 @@ Never optimize for “more platform.” Optimize for better inference about:
 4. which intervention is appropriate;
 5. where the next unit of study time produces the highest expected return.
 
-## 2. Read order before material work
+## 2. Context recovery and read order
+
+### Fresh Codex / fresh engineer / new environment
+Before material work in a session that does not already understand the project, read:
+
+1. `docs/CODEX_CONTEXT_HANDOFF.md`
+2. `docs/PROJECT_STATE.md`
+3. `docs/PROJECT_CONTEXT_CANON.md`
+4. `docs/CONTEXT_PARITY_AUDIT.md`
+5. `docs/README.md`
+6. `docs/PRODUCT_VISION.md`
+7. `docs/PROJECT_PRINCIPLES.md`
+8. architecture/domain document relevant to the task
+9. active milestone spec
+10. relevant ADRs
+11. active GitHub issue
+
+### Context already recovered
+For subsequent task work, the minimum read order is:
 
 1. `docs/PROJECT_STATE.md`
 2. `docs/README.md`
-3. `docs/PRODUCT_VISION.md`
-4. `docs/PROJECT_PRINCIPLES.md`
-5. architecture/domain document relevant to the task
-6. active milestone spec
-7. relevant ADRs
+3. relevant architecture/domain doc
+4. active milestone spec
+5. relevant ADRs/issue
 
 If code and docs conflict, do not silently choose. Flag the conflict and update the canonical document as part of the change.
 
@@ -92,6 +108,8 @@ If code and docs conflict, do not silently choose. Flag the conflict and update 
 ## 9. Documentation rules
 
 - `docs/README.md` is the documentation map.
+- `docs/PROJECT_CONTEXT_CANON.md` preserves conversation-level rationale/context; it is not a competing implementation spec.
+- `docs/CONTEXT_PARITY_AUDIT.md` records project-decision parity between ChatGPT context and repository memory.
 - `docs/PROJECT_STATE.md` is concise and current, not a design essay.
 - Stable architecture belongs in domain docs.
 - Irreversible/significant decisions belong in `docs/adr/`.
