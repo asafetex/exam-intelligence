@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "exam-intelligence"
+version = "0.0.1"
+description = "Local-first exam intelligence system"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.116",
+  "uvicorn>=0.35",
+  "jinja2>=3.1",
+  "python-multipart>=0.0.20",
+  "pydantic>=2.11",
+  "jsonschema>=4.25",
+  "openpyxl>=3.1",
+  "pandas>=2.3",
+  "httpx>=0.28"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.4", "ruff>=0.12"]
+fsrs = ["fsrs>=6"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
