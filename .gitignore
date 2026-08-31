@@ -1,0 +1,32 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Imported / private corpora
+data/raw/*
+!data/raw/.gitkeep
+data/staging/*
+!data/staging/.gitkeep
+data/local/
+data/imports/
+data/exports/
+sources/private/
+knowledge/raw/
+knowledge/private/
+reports/generated/
+candidate/
+
+# Large/private media
+*.mp4
+*.mkv
+*.mov
+*.wav
+*.mp3
