@@ -14,6 +14,7 @@ This directory is the durable source of truth for Exam Intelligence. Chat histor
 | What is true right now? | `PROJECT_STATE.md` |
 | What is the overall architecture? | `SYSTEM_ARCHITECTURE.md` |
 | **What learning doctrine controls the product?** | **`LEARNING_OPERATING_SYSTEM.md`** |
+| **When does evidence become an actionable learning problem and how is it closed?** | **`LEARNING_ALERT_ENGINE.md`** |
 | How are Batismo 2.0 and Masterclass Neurociência combined? | `BATISMO_MASTERCLASS_INTEGRATION.md` |
 | What does the scientific learning evidence imply operationally? | `SCIENTIFIC_LEARNING_CANON.md` |
 | What learning/readiness telemetry do we preserve? | `LEARNING_TELEMETRY.md` |
@@ -48,44 +49,48 @@ This directory is the durable source of truth for Exam Intelligence. Chat histor
 The private source corpus is richer than what can legally/safely live in a public repository. The public repo therefore contains **derived, auditable doctrine**, not paid transcripts/full scientific text.
 
 Key research bridge:
-- `research/MASTERCLASS_SCIENTIFIC_PACK.md` — project-safe audit of the recovered 19-document Masterclass scientific pack, including source-integrity defects and permitted operational translations;
-- `SCIENTIFIC_LEARNING_CANON.md` — broader learning-science canon for retrieval, spacing, feedback, elaboration, interleaving, metacognition, sleep and related product rules;
-- `research/LEARNING_SCIENCE_BASELINE.md` — earlier background/reference research where relevant;
-- `EVIDENCE_FRAMEWORK.md` — how practitioner outcome history, protocol evidence, scientific intervention evidence, mechanism evidence and candidate-local evidence coexist.
+- `research/MASTERCLASS_SCIENTIFIC_PACK.md` — project-safe audit of the recovered 19-document Masterclass scientific pack;
+- `SCIENTIFIC_LEARNING_CANON.md` — broader learning-science canon for retrieval, spacing, feedback, elaboration, interleaving, metacognition and sleep;
+- `research/LEARNING_SCIENCE_BASELINE.md` — earlier background/reference research;
+- `EVIDENCE_FRAMEWORK.md` — practitioner outcome, protocol, scientific intervention, mechanism and candidate-local evidence.
 
 ## Normative precedence for learning behavior
 
-When a learning/session implementation is ambiguous, read in this order:
+When learning/session/remediation behavior is ambiguous, read:
 
 1. `AGENTS.md` safety/hard rules;
 2. `LEARNING_OPERATING_SYSTEM.md`;
-3. `BATISMO_MASTERCLASS_INTEGRATION.md`;
-4. `SCIENTIFIC_LEARNING_CANON.md` + `EVIDENCE_FRAMEWORK.md`;
-5. domain-specific docs (`PERIODIZATION_ENGINE.md`, `LEARNING_INTELLIGENCE.md`, `DECISION_ENGINE.md`, etc.);
-6. relevant ADRs, especially `0009` and `0010`;
-7. active milestone/issue for scope.
+3. `LEARNING_ALERT_ENGINE.md` for detection/remediation/retest behavior;
+4. `BATISMO_MASTERCLASS_INTEGRATION.md`;
+5. `SCIENTIFIC_LEARNING_CANON.md` + `EVIDENCE_FRAMEWORK.md`;
+6. domain docs (`PERIODIZATION_ENGINE.md`, `LEARNING_INTELLIGENCE.md`, `DECISION_ENGINE.md`, etc.);
+7. ADRs `0009`, `0010`, `0011` and other relevant ADRs;
+8. active milestone/issue for scope.
 
-The active milestone can restrict **what is implemented now**, but it must not silently contradict the frozen Learning OS.
+The active milestone can restrict **what is implemented now**, but must not silently contradict the frozen Learning OS/Alert loop.
 
 ## Documentation classes
 
 ### Context bridge
-`PROJECT_CONTEXT_CANON.md` preserves conversation-level rationale, examples, rejected paths and conceptual evolution that may not belong inside a narrow normative spec. `CONTEXT_PARITY_AUDIT.md` records whether material project decisions and recovered learning doctrine are durably represented. These files exist so Codex/VS Code never require access to chat history.
+`PROJECT_CONTEXT_CANON.md` preserves conversation-level rationale/examples. `CONTEXT_PARITY_AUDIT.md` records whether material project decisions and recovered learning doctrine are durably represented.
 
 ### Canonical product/architecture
 Normative. Implementation should conform or update the document via reviewed change.
 
 ### Learning Operating System
-Normative for study behavior and intervention selection. Batismo 2.0 and Masterclass Neurociência are first-class practitioner design authorities, refined by scientific and candidate evidence rather than treated as optional content.
+Normative for study behavior and intervention selection. Batismo 2.0 and Masterclass Neurociência are first-class practitioner design authorities, refined by scientific and candidate evidence.
+
+### Learning Alert & Remediation
+`LEARNING_ALERT_ENGINE.md` is normative for when evidence becomes an actionable problem, how severity/lifecycle work, and what evidence closes/escalates remediation.
 
 ### ADRs (`adr/`)
 Why important choices were made. ADRs preserve reasoning even when later superseded.
 
 ### Benchmarks (`benchmarks/`)
-What products/repositories do well and what is applicable. Benchmark findings are inputs, not automatic requirements.
+Benchmark findings are inputs, not automatic requirements.
 
 ### Research (`research/`)
 Scientific/practitioner evidence. Claims preserve source/evidence strength and do not silently become product facts.
 
 ### Project state
-`PROJECT_STATE.md` stays short, operational and current. It must not become a duplicate architecture document.
+`PROJECT_STATE.md` stays short, operational and current.
