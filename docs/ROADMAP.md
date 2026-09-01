@@ -1,198 +1,171 @@
 # Roadmap
 
-The roadmap is intentionally vertical-slice oriented. A milestone advances only when the previous layer produces trustworthy study evidence, not because a feature list is complete.
+The roadmap is vertical-slice oriented. A milestone advances only when the previous layer produces trustworthy study evidence.
 
-After recovery of the Batismo 2.0 + Masterclass Neurociência + scientific corpus, the roadmap was revised: **Learning Intelligence is not a distant optional feature.** The recovered doctrine is already canonical; implementation follows as soon as the data and Atomic Tree prerequisites exist.
+Batismo 2.0 + Masterclass Neurociência are already canonical Learning OS inputs. The new **Learning Alert & Remediation Engine** closes the loop between diagnosis and intervention: a material problem must be detected, remediated, retested and either resolved or escalated.
 
-## Parallel supporting workstream — Knowledge Canon
-
-This workstream is continuous and does not block every runtime milestone.
-
+## Parallel workstream — Knowledge Canon
 Already recovered:
-- Batismo 2.0 canonical package from 11 lesson transcripts;
-- Masterclass Neurociência canonical package from 6 lesson transcripts;
-- OQF/30-day protocol reconstruction;
+- Batismo 2.0: 11 lesson transcripts;
+- Masterclass Neurociência: 6 lesson transcripts;
+- OQF/30-day protocol;
 - 19-document scientific attachment audit;
 - derived technique/claim/evidence structures.
 
-Next:
-- preserve/import reviewed machine-readable intervention definitions;
-- add auditable practitioner cohort/outcome records when source material is available;
-- ingest Benites/other practitioner sources with the same lossless pipeline;
-- extend learning-science evidence by intervention concept.
-
-Private paid source text/media remains outside public Git.
+Next: reviewed machine-readable interventions, practitioner outcome provenance, Benites/other practitioner ingestion, continued learning-science evidence.
 
 ---
 
 ## M001 — Foundation: Corpus In → First Attempt Out
-**Outcome:** real corpus enters; real candidate attempt exits; evidence is Learning-OS-ready.
+**Outcome:** trustworthy exam/candidate evidence enters the system and is Learning-OS/Alert-Engine-ready.
 
-- migration runner through schema v3;
-- structured JSON/CSV/XLSX ingestion;
-- Quest API adapter;
-- official VUNESP PDF + independent final-key path;
-- source registry / rights / staging / quarantine;
-- canonical identity / occurrence / caderno handling;
+- migrations through schema v4;
+- JSON/CSV/XLSX + Quest API + one official VUNESP PDF/key path;
+- provenance/staging/quarantine;
+- identity/occurrence/caderno handling;
 - local Mini-QC;
-- first/final answer + time + confidence + score persistence;
-- minimal optional `study_context` hook (goal/phase/context/next action);
+- answer/time/confidence/score persistence;
+- optional minimal `study_context`;
+- `learning_alert` + `learning_alert_event` schema/lifecycle smoke test only;
 - first basic topic diagnostic.
 
-**Gate:** full repository tests pass in the implementation environment, then a clean end-to-end vertical slice works with real data. No full adaptive Learning OS yet.
+**Gate:** full tests pass and end-to-end corpus→attempt works. No automatic alerts yet.
 
 ---
 
 ## M002 — Atomic Tree + Verticalized Syllabus
-**Outcome:** system knows the target knowledge universe, breadth and exam-side structure.
+**Outcome:** candidate evidence is attached to actionable knowledge nodes and exam leverage.
 
-- source-faithful current edital ingestion;
+- current edital ingestion;
 - versioned Atomic Tree;
 - syllabus→tree mapping;
-- initial question classification;
-- historical coverage map;
-- new/core/tail evidence states;
+- question classification;
+- historical coverage/incidence;
 - prerequisite/dependency hooks;
-- current target exam configuration.
-
-**Gate:** questions and candidate evidence can be interpreted at actionable Atomic Topic granularity.
+- current target-exam configuration.
 
 ---
 
-## M003 — Candidate Intelligence + Learning Telemetry
-**Outcome:** system detects meaningful candidate/behavior states instead of reporting raw percentages.
+## M003 — Candidate Intelligence + Alert Detection v0
+**Outcome:** the system identifies candidate states and can distinguish “needs more evidence” from a material problem.
 
 - unseen vs repeated performance;
 - coverage-aware evidence states;
-- confident-wrong;
-- response-time distributions;
+- confidence/confident-wrong;
+- time distributions;
 - error taxonomy;
-- first prioritized gap report;
-- low-friction `study_context` capture;
-- optional readiness/task-clarity/difficulty context;
-- delayed-validation event model;
-- phase snapshot/version plumbing;
-- first D1…Dn ranking inputs.
+- retention/delayed-validation primitives;
+- low-friction study context;
+- D1…Dn ranking inputs;
+- deterministic alert candidates for:
+  - knowledge gap;
+  - misconception/confident-wrong;
+  - coverage gap;
+  - time/fluency;
+  - attention/execution;
+- evidence sufficiency / `WATCH` vs actionable alert;
+- detector version + evidence snapshot.
 
-**Gate:** enough evidence exists to route different problems to different interventions.
+**Gate:** rules produce interpretable alerts without raw-threshold spam or repeated-item contamination.
 
 ---
 
-## M004 — Learning Operating System v1
-**Outcome:** Batismo/Masterclass doctrine becomes executable rather than merely documented.
+## M004 — Learning OS v1 + Remediation Lifecycle
+**Outcome:** alerts alter the study plan and close through remediation/retest.
 
-### Batismo strategy engine
-- material-validation state;
-- `basic_80_20` / `basic_20_80` phase rules;
-- mesocycle state;
-- D1…Dn ranking + continuity/maintenance policy;
-- urgency/surprise/final-stage templates as configuration, not rigid calendar laws.
+### Batismo strategy
+- material-validation / `basic_80_20` / `basic_20_80` / mesocycle rules;
+- D1…Dn + continuity/maintenance;
+- urgency/final-stage templates.
 
-### Masterclass execution engine
-- readiness gate;
-- goal/task clarity;
+### Masterclass execution
+- readiness;
+- task clarity;
 - challenge-skill adjustment;
 - attention/environment response;
-- feedback/proximal-progress logic;
-- start-friction/habit intervention hooks;
-- frustration/failure routing.
+- feedback/progress;
+- start-friction/frustration handling.
 
-### Intervention registry
-Seed reviewed versioned interventions derived from the recovered canon and scientific evidence:
-- focused theory/worked example;
+### Alert/Remediation Engine
+- severity: `WATCH | MEDIUM | HIGH | CRITICAL`;
+- dedup/cooldown;
+- lifecycle:
+  `DETECTED → REMEDIATION_ASSIGNED → RETEST_PENDING → RESOLVED/ESCALATED/OBSERVE`;
+- content vs execution diagnosis;
+- alert influence on D1/Today priority;
+- resolution criteria by alert type;
+- failed-retest escalation rather than blind repetition of the same technique.
+
+### Intervention registry/routing
+- theory/worked example;
 - retrieval/retest;
 - contrastive discrimination;
-- targeted question practice;
+- targeted questions;
 - source repair;
 - timing/fluency;
 - attention/reset;
 - simulation;
 - behavior/start intervention.
 
-### First routing
-`candidate diagnosis + phase + exam priority + readiness → intervention`.
-
-**Gate:** the system can explain why two different errors receive two different study prescriptions and measure the result.
+**Gate:** two different failure patterns receive different interventions, and the system can prove whether remediation worked.
 
 ---
 
 ## M005 — Retention + Memory + Intervention Outcomes
-**Outcome:** interventions are evaluated by durable learning, not immediate fluency.
+**Outcome:** judge learning by durable/exam-relevant improvement.
 
-- delayed validation/retest queues;
+- delayed retest queues;
 - successive relearning;
-- adaptive spacing by performance;
-- memory-item creation only for appropriate atomic targets;
-- `py-fsrs` integration;
-- retention/decay evidence;
-- intervention-instance/outcome log;
-- N-of-1 comparisons on comparable topics;
-- `maintain | adapt | replace | investigate | progress` cycle decisions.
-
-**Gate:** the system can distinguish an intervention that felt productive from one that improved delayed/exam-like performance.
+- adaptive spacing;
+- FSRS for appropriate memory items;
+- intervention outcome log;
+- N-of-1 comparisons;
+- retention/decay alerts;
+- `maintain | adapt | replace | investigate | progress` decisions.
 
 ---
 
 ## M006 — Question / Bank Intelligence
-**Outcome:** historical corpus reveals reusable assessment patterns without contaminating learning evidence.
+**Outcome:** historical corpus exposes reusable assessment patterns.
 
-- exact cross-exam recurrence analytics;
-- conservative near-duplicate detection;
-- semantic question-family experiments;
-- recurrence features;
+- exact recurrence analytics;
+- semantic question families;
 - distractor/trap taxonomy;
-- Bank DNA baselines;
-- legal/authority enrichment where valuable;
+- Bank DNA;
+- bank-trap alerts;
+- legal/authority enrichment;
 - Question Learning Packet depth rules.
-
-This milestone can partially overlap M005 when a bank-specific pattern directly fixes a diagnosed failure, but does not outrank foundational Learning OS work.
 
 ---
 
 ## M007 — Decision Engine / Today
-**Outcome:** system prescribes the next study actions with reasons and measured learning policy.
+**Outcome:** the system prescribes the next action with reasons.
 
-- interpretable priority baseline;
-- Batismo phase-aware allocation;
-- readiness-aware task timing/dose;
-- due review/retest integration;
-- intervention effectiveness signal;
-- Today queue;
-- weekly/mesocycle recalibration;
-- OQF/cycle review where appropriate;
-- compare policy with simple baselines and unpersonalized Batismo template.
+Inputs include:
+- exam leverage;
+- candidate gap/coverage/retention;
+- Batismo phase;
+- readiness;
+- open Learning Alerts and severity;
+- remediation/retest obligations;
+- intervention effectiveness;
+- available time.
 
-**North-star output:**
+North-star output:
 
 ```text
 what to study
-+ why it matters on the exam
-+ why it is the candidate's current bottleneck
-+ which Batismo/Masterclass/science intervention to use
-+ how long / under which conditions
-+ what measurement determines the next move
++ why it matters
++ what problem is active
++ alert/evidence strength
++ which intervention to use
++ duration/conditions
++ what retest will close or escalate the problem
 ```
 
 ---
 
-## M008+ — Advanced only if evidence justifies
+## M008+ — only if evidence justifies
+Adaptive testing, calibrated IRT/TRI, knowledge tracing, score simulations, DuckDB/Parquet, advanced automation, multi-user/cloud.
 
-Possible:
-- richer adaptive testing;
-- externally calibrated IRT/TRI;
-- knowledge tracing;
-- approval/score simulations with leakage-safe validation;
-- DuckDB/Parquet analytical projection;
-- more automated scientific/practitioner evidence updates;
-- multi-agent maintenance;
-- multi-user/cloud productization.
-
-None of these outrank a reliable personalized Learning OS.
-
-## Roadmap rule
-
-A later milestone may be pulled forward only if:
-1. a current study decision materially depends on it;
-2. prerequisites are trustworthy;
-3. scope does not endanger the active vertical slice;
-4. the change is recorded in `PROJECT_STATE.md` and, if architectural, an ADR.
+None outranks a reliable closed learning loop.
