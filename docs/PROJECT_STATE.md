@@ -1,8 +1,8 @@
 # Project State
 
-**Status:** Canonical V0 architecture frozen; documentation/context parity hardened; Batismo 2.0 + Masterclass Neurociência + scientific learning corpus recovered and promoted to the core Learning Operating System. M001 remains the active implementation milestone.
+**Status:** Canonical V0 architecture frozen; Batismo 2.0 + Masterclass Neurociência + scientific learning corpus are core Learning OS inputs; Learning Alert & Remediation Engine is now a first-class component. M001 remains active.
 
-**Current DB schema version:** 3
+**Current DB schema version:** 4
 
 **Active milestone:** M001 — Corpus In → First Attempt Out
 - GitHub issue: `#1`
@@ -13,9 +13,9 @@
 
 ### Repository / context
 - Root README and `docs/README.md` are canonical entrypoints.
-- `docs/PROJECT_CONTEXT_CANON.md` preserves conversation-level rationale, examples, rejected paths and conceptual evolution.
-- `docs/CONTEXT_PARITY_AUDIT.md` records conversation + recovered-learning-corpus → repository decision parity.
-- `docs/CODEX_CONTEXT_HANDOFF.md` defines fresh Codex/VS Code context recovery.
+- `docs/PROJECT_CONTEXT_CANON.md` preserves conversation-level rationale and examples.
+- `docs/CONTEXT_PARITY_AUDIT.md` records conversation + recovered-learning-corpus → repository parity.
+- `docs/CODEX_CONTEXT_HANDOFF.md` defines fresh-session recovery.
 
 ### Exam/corpus foundation
 - Source-agnostic ingestion, provenance, staging/quarantine and rights rules are frozen.
@@ -23,54 +23,59 @@
 - Legitimate cross-exam exact recurrence is preserved as predictive evidence.
 - Official bank keys are versioned and separate from universal/legal truth.
 - Atomic Tree / source-faithful syllabus model is frozen conceptually.
-- Scoring policy is separate from question type and snapshot-reproducible.
+- Scoring policy is separate from question type and reproducible.
 - Mini-QC modes and core candidate attempt telemetry are defined.
 
-### Learning Operating System — now first-class
-- Batismo 2.0 canonical source was recovered from **11 transcript-derived lessons** and includes phase/state, 80/20→20/80, D1…Dn, mesocycles, urgency/final-stage strategy, technique and simulation doctrine.
-- Masterclass Neurociência canonical source was recovered from **6 transcript-derived lessons** and includes readiness, focus, challenge-skill, feedback, habit, frustration, progression and recovery doctrine.
-- The OQF/30-day protocol is represented as a controlled behavioral/performance cycle with baseline and reassessment, not a magical habit/neural deadline.
-- A **19-document Masterclass scientific pack** was audited for evidence and source integrity; derived public-safe rules are documented in `research/MASTERCLASS_SCIENTIFIC_PACK.md`.
-- `LEARNING_OPERATING_SYSTEM.md` is now normative for learning behavior.
-- `BATISMO_MASTERCLASS_INTEGRATION.md` defines strategic vs execution responsibilities.
-- `SCIENTIFIC_LEARNING_CANON.md` adds retrieval, spacing, feedback, elaboration, discrimination, metacognition, sleep and related science rules.
-- `EVIDENCE_FRAMEWORK.md` separates practitioner outcome evidence, practitioner protocol evidence, scientific intervention evidence, mechanism evidence and candidate-local evidence.
-- ADR 0009 promotes Batismo/Masterclass to core Learning OS design authority.
-- ADR 0010 explicitly separates method efficacy from neuroscience-mechanism truth.
+### Learning Operating System
+- Batismo 2.0: 11 transcript-derived lessons recovered into strategic phase/allocation doctrine.
+- Masterclass Neurociência: 6 transcript-derived lessons recovered into readiness/focus/challenge/feedback/habit/recovery doctrine.
+- OQF is represented as a measurable behavioral/performance cycle.
+- 19-document Masterclass scientific pack was audited; public-safe synthesis exists.
+- `LEARNING_OPERATING_SYSTEM.md` is normative for learning behavior.
+- ADR 0009 promotes Batismo/Masterclass to core design authority.
+- ADR 0010 separates method efficacy/outcome evidence from mechanism truth.
+
+### Learning Alert & Remediation Engine
+- `LEARNING_ALERT_ENGINE.md` is canonical for alert detection, severity, lifecycle, remediation, retest and resolution.
+- ADR 0011 makes the engine a first-class architecture component between Diagnosis and Intervention/Decision.
+- Alert types include knowledge gap, misconception, concept confusion, retention decay, coverage gap, source gap, bank trap, time/fluency and attention/execution.
+- Alerts are evidence objects, not notification counters.
+- Severity: `WATCH | MEDIUM | HIGH | CRITICAL`.
+- Lifecycle: `DETECTED → remediation → RETEST → RESOLVED | ESCALATED | OBSERVE`.
+- Raw thresholds such as `errors >= N` are explicitly rejected without evidence sufficiency/novelty/coverage context.
+- Open high-leverage alerts may later alter D1…Dn and Today priority.
+- Resolution requires appropriate evidence, preferably delayed unseen/equivalent validation.
 
 ### Schema/runtime readiness
-- SQLite migration runner is designed through schema v3.
-- Schema v3 adds `learning_intervention` and optional `study_context` so M001 evidence can preserve Batismo phase/session goal/readiness/intervention lineage without implementing the full adaptive engine.
-- Smoke tests were updated to expect v3 and validate Learning OS constraints/FKs.
-- The new v3 DDL was independently smoke-tested against SQLite for table creation, composite intervention FK, valid session context insertion and 1–5 range enforcement.
-- **The full repository pytest suite has not yet been executed on this branch in the current environment because the local container cannot reach GitHub.** Full suite execution remains a merge/implementation gate in Codex/VS Code/CI; do not report the branch as fully green until that runs.
+- Migration chain is now designed through schema v4.
+- v3: `learning_intervention` + `study_context`.
+- v4: `learning_alert` + append-oriented `learning_alert_event`.
+- Smoke tests now expect v4 and include a synthetic alert lifecycle/constraint test.
+- Full repository pytest execution remains an implementation-environment gate before M001 feature work is considered green.
 
 ## Immediate next action
 
-After this Learning OS hardening is reviewed/merged, synchronize `codex/m001-foundation` and execute M001:
-1. recover context using `docs/CODEX_CONTEXT_HANDOFF.md` and Learning OS docs;
-2. run the full existing test suite first;
-3. build ingestion + canonical-load path;
-4. prove structured corpus import with >= 1,000 questions;
-5. prove one official VUNESP exam + independent final-key path;
-6. run local Mini-QC;
-7. persist the first real candidate attempt;
-8. persist/read minimal optional `study_context` (goal + provisional phase/context) without adding questionnaire friction;
-9. emit basic topic diagnostic.
+Execute M001 on `codex/m001-foundation`:
+1. synchronize branch with current `main`;
+2. recover context using `docs/CODEX_CONTEXT_HANDOFF.md` plus Learning OS/Alert docs;
+3. run full tests first;
+4. build ingestion + canonical load;
+5. prove >=1,000 structured questions;
+6. prove one official VUNESP exam + independent final key;
+7. run Mini-QC;
+8. persist first real attempt + minimal optional `study_context`;
+9. validate alert-lifecycle schema hook only;
+10. emit basic topic diagnostic.
 
 ## Post-M001 priority
 
-1. M002 — Atomic Tree/current edital;
-2. M003 — Candidate Intelligence + Learning Telemetry;
-3. M004 — executable Batismo/Masterclass Learning OS v1;
-4. M005 — delayed validation, retention, FSRS/memory and intervention outcomes;
-5. M006 — deeper Question/Bank Intelligence;
-6. M007 — phase/readiness/intervention-aware Today Decision Engine.
+1. **M002** — Atomic Tree/current edital;
+2. **M003** — Candidate Intelligence + Learning Telemetry + interpretable Alert Detection v0;
+3. **M004** — executable Batismo/Masterclass Learning OS + Alert Remediation/Retest lifecycle;
+4. **M005** — retention, FSRS/memory and intervention outcomes;
+5. **M006** — deeper Question/Bank Intelligence + Bank Trap alerts;
+6. **M007** — Today Decision Engine using phase/readiness/open-alert/remediation evidence.
 
 ## Still deferred from M001
 
-Automatic phase inference, full OQF orchestration, adaptive readiness scheduling, semantic question-family clustering, deep learning packets, automatic legal verification, FSRS UI, Bank Trap DNA, advanced mastery models, IRT/TRI, cloud/multi-user productization.
-
-## Epistemic rule
-
-The project treats Batismo/Masterclass real-world performance history as important practitioner evidence. It does **not** require every useful protocol to have a perfect mechanistic explanation before use. At the same time, a numeric outcome claim becomes a product fact only when auditable provenance exists, and no neuroscience mechanism alone can justify an educational/clinical action.
+Automatic alert detection/severity, alert-driven D1 reprioritization, remediation scheduler, phase inference, full OQF orchestration, adaptive readiness scheduling, semantic families, Bank Trap DNA, FSRS UI, deep packets, advanced mastery/IRT/TRI and cloud/multi-user productization.
