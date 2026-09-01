@@ -7,7 +7,7 @@ This directory is the durable source of truth for Exam Intelligence. Chat histor
 | Need | Read |
 |---|---|
 | Recover the full conversation-level project context? | `PROJECT_CONTEXT_CANON.md` |
-| Verify conversation → repository parity? | `CONTEXT_PARITY_AUDIT.md` |
+| Verify conversation/source → repository parity? | `CONTEXT_PARITY_AUDIT.md` |
 | Start a fresh Codex/VS Code session? | `CODEX_CONTEXT_HANDOFF.md` |
 | What is the project? | `PRODUCT_VISION.md` |
 | What principles cannot drift? | `PROJECT_PRINCIPLES.md` |
@@ -45,11 +45,12 @@ This directory is the durable source of truth for Exam Intelligence. Chat histor
 
 ## Learning-OS research map
 
-The private source corpus is richer than what can legally/safely live in a public repository. The public repo therefore contains **derived, auditable doctrine**, not paid transcripts.
+The private source corpus is richer than what can legally/safely live in a public repository. The public repo therefore contains **derived, auditable doctrine**, not paid transcripts/full scientific text.
 
 Key research bridge:
 - `research/MASTERCLASS_SCIENTIFIC_PACK.md` — project-safe audit of the recovered 19-document Masterclass scientific pack, including source-integrity defects and permitted operational translations;
 - `SCIENTIFIC_LEARNING_CANON.md` — broader learning-science canon for retrieval, spacing, feedback, elaboration, interleaving, metacognition, sleep and related product rules;
+- `research/LEARNING_SCIENCE_BASELINE.md` — earlier background/reference research where relevant;
 - `EVIDENCE_FRAMEWORK.md` — how practitioner outcome history, protocol evidence, scientific intervention evidence, mechanism evidence and candidate-local evidence coexist.
 
 ## Normative precedence for learning behavior
@@ -69,7 +70,7 @@ The active milestone can restrict **what is implemented now**, but it must not s
 ## Documentation classes
 
 ### Context bridge
-`PROJECT_CONTEXT_CANON.md` preserves conversation-level rationale, examples, rejected paths and conceptual evolution that may not belong inside a narrow normative spec. `CONTEXT_PARITY_AUDIT.md` records whether material project decisions are durably represented. These files exist so Codex/VS Code never require access to chat history.
+`PROJECT_CONTEXT_CANON.md` preserves conversation-level rationale, examples, rejected paths and conceptual evolution that may not belong inside a narrow normative spec. `CONTEXT_PARITY_AUDIT.md` records whether material project decisions and recovered learning doctrine are durably represented. These files exist so Codex/VS Code never require access to chat history.
 
 ### Canonical product/architecture
 Normative. Implementation should conform or update the document via reviewed change.
