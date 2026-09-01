@@ -2,12 +2,19 @@
 
 ## Context
 
-Exam Intelligence is a modular monolith for V0: one Python application, one SQLite operational database and file-based knowledge/raw-source stores. Module boundaries are explicit so components can evolve independently without premature distributed systems.
+Exam Intelligence is a local-first modular monolith for V0: one Python application, one SQLite operational database and file-based knowledge/raw-source stores. Module boundaries are explicit so components can evolve without premature distributed systems.
+
+The architecture has two equally important halves:
+
+1. **Exam/Candidate Intelligence** — what the exam demands and what the candidate demonstrates;
+2. **Learning Operating System** — how Batismo 2.0, Masterclass Neurociência, learning science and candidate-local evidence convert a diagnosed gap into the right study action.
+
+The product is not complete when it can display questions. It is complete only when it can improve the next learning decision.
 
 ## Logical architecture
 
 ```text
-                               SOURCE LAYER
+                                SOURCE LAYER
           ┌────────────────────────┼────────────────────────┐
           │                        │                        │
      Quest/API               Official PDFs          CSV/XLSX/JSON
@@ -33,34 +40,89 @@ Exam Intelligence is a modular monolith for V0: one Python application, one SQLi
            accuracy / coverage / time / confidence / retention
                                    ▼
                           DIAGNOSIS ENGINE
-               content gap / retrieval / trap / calibration / etc.
-                       ↙                       ↘
-              QUESTION PRACTICE          MEMORY / FSRS
-                       \                       /
-                        \                     /
-                         ▼                   ▼
+           knowledge / recall / trap / attention / time / calibration
+                                   ▼
+                         LEARNING OPERATING SYSTEM
+          ┌──────────────────┬───────────────────┬─────────────────┐
+          │                  │                   │                 │
+   BATISMO STRATEGY   MASTERCLASS GATES   LEARNING SCIENCE   LOCAL EVIDENCE
+ phase/allocation      readiness/flow      technique rules    intervention outcome
+          └──────────────────┴───────────────────┴─────────────────┘
+                                   ▼
+                           INTERVENTION ENGINE
+           theory / retrieval / contrast / questions / memory / simulation
+                                   ▼
                            LEARNING EVIDENCE
                                    ▼
                            DECISION ENGINE
                                    ▼
                                  TODAY
+                                   ↺
 ```
 
-Parallel knowledge lane:
+## Learning knowledge lane
 
 ```text
-OQF + neuroscience masterclass + Benites + EARA + research
-                              ↓
-                      lossless ingestion
-                              ↓
-                     source-grounded atoms
-                              ↓
-                      concepts / protocols
-                              ↓
-                        Learning Canon
-                              ↓
-                    Intervention selection
+PRIVATE / OWNED SOURCES
+Batismo 2.0 + Masterclass + OQF + Benites + other practitioner material
+                     ↓
+              lossless ingestion
+                     ↓
+       transcript segments / source lineage
+                     ↓
+         rules / techniques / protocols
+                     ↓
+             PRACTITIONER CANON
+                     │
+                     ├─────────┐
+                     │         │
+                     ▼         ▼
+              outcome evidence  scientific evidence
+                     \         /
+                      \       /
+                       ▼     ▼
+                      LEARNING CANON
+                           ↓
+                    intervention registry
 ```
+
+The recovered Batismo/Masterclass corpus is now a **design authority**, not merely a future RAG source. Full paid/restricted materials remain local; derived redistributable doctrine can live in Git.
+
+## Batismo strategy state
+
+The system must be able to represent these operational states:
+
+```text
+intake
+→ material_validation
+→ basic_80_20
+→ basic_20_80
+→ mesocycle | edital_imminent | surprise_subject | final_sprint_50 | countdown_10
+→ simulation
+→ exam
+→ post_exam
+```
+
+Durations are templates/configurable; transitions should ultimately use observed coverage, performance, urgency and available capacity.
+
+## Masterclass execution gates
+
+Before a study prescription becomes executable:
+
+```text
+safety / official constraints
+→ target + phase
+→ readiness
+→ goal clarity
+→ attention environment
+→ challenge-skill match
+→ active-learning mode
+→ feedback design
+→ recovery constraints
+→ telemetry / adaptation rule
+```
+
+The engine measures observable proxies. It does not infer dopamine, BDNF or a user's neural state.
 
 ## Runtime boundaries
 
@@ -73,43 +135,54 @@ Must work offline and without an LLM:
 - key-version resolution;
 - basic filters/metrics;
 - provenance lookup;
-- session reproduction.
+- session reproduction;
+- Batismo phase snapshot storage;
+- deterministic intervention rules once encoded;
+- review/retest scheduling policy where deterministic.
 
 ### Optional model-assisted services
-May use LLM/embedding/classifier capabilities later:
+May use LLM/classifier capabilities later:
 - PDF structure recovery where deterministic parsing fails;
 - Atomic Tree classification suggestions;
 - semantic question-family proposals;
 - distractor/trap labeling;
 - Question Learning Packet synthesis;
-- knowledge atom extraction.
+- knowledge-atom extraction;
+- explanation synthesis grounded in source/authority;
+- candidate error-classification suggestions.
 
 Model output is never silently promoted to authoritative data.
 
 ## Storage
 
 ### SQLite
-Operational source of truth for structured exam/candidate data.
+Operational source of truth for structured exam/candidate/learning-event data.
 
 ### Files
 - raw/private source assets: local, immutable, gitignored;
-- Markdown/JSONL knowledge artifacts: Git when redistributable, local otherwise;
-- large media: local storage; Git stores metadata/manifests where appropriate.
+- paid course transcripts/videos: local/private;
+- redistributable canonical Markdown/JSONL: Git;
+- large media: local storage; Git stores manifests/hashes where appropriate.
 
 ### Future analytics
-DuckDB/Parquet is an optional analytical projection if/when SQLite queries become limiting. It is not a V0 dependency.
+DuckDB/Parquet remains an optional analytical projection if SQLite becomes limiting. It is not a V0 dependency.
 
 ## Deployment model
 
-V0 runs on localhost. Codex Cloud may edit code but should not be treated as the canonical storage location for private corpora. Local VS Code/runtime handles private PDFs/videos and candidate DB.
+V0 runs locally. Codex Cloud can edit code and public documentation, but private corpora/candidate DBs live locally unless an explicit secure storage design is adopted later.
 
 ## Architectural quality attributes
 
 Priority order:
-1. correctness and evidence integrity;
+1. exam and learning evidence integrity;
 2. reproducibility;
 3. source/provenance traceability;
-4. extensibility without historical rewrites;
-5. local usability;
-6. performance;
-7. visual polish.
+4. actionable study decision quality;
+5. extensibility without rewriting history;
+6. local usability;
+7. performance;
+8. visual polish.
+
+## Core architectural invariant
+
+> **Never optimize for building an exam platform. Optimize for generating better learning decisions from exam evidence, Batismo/Masterclass operating doctrine, learning science and candidate outcomes.**
