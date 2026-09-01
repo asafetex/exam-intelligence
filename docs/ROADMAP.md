@@ -39,7 +39,7 @@ Private paid source text/media remains outside public Git.
 - minimal optional `study_context` hook (goal/phase/context/next action);
 - first basic topic diagnostic.
 
-**Gate:** clean end-to-end vertical slice works with real data and tests; no full adaptive Learning OS yet.
+**Gate:** full repository tests pass in the implementation environment, then a clean end-to-end vertical slice works with real data. No full adaptive Learning OS yet.
 
 ---
 
