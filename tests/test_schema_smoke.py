@@ -13,17 +13,17 @@ def root() -> Path:
 
 def test_v0_migrations_load_and_are_idempotent():
     conn = sqlite3.connect(":memory:")
-    assert migrate(conn, root()) == 3
-    assert migrate(conn, root()) == 3
+    assert migrate(conn, root()) == 4
+    assert migrate(conn, root()) == 4
     tables = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
     expected = {
         "question", "question_occurrence", "occurrence_option", "answer_key",
         "exam_form", "ingestion_record", "taxonomy_node", "session_item",
         "attempt", "legal_authority_version", "occurrence_authority", "stimulus_asset",
-        "learning_intervention", "study_context",
+        "learning_intervention", "study_context", "learning_alert", "learning_alert_event",
     }
     assert expected <= tables
-    assert conn.execute("SELECT value FROM schema_meta WHERE key='schema_version'").fetchone()[0] == "3"
+    assert conn.execute("SELECT value FROM schema_meta WHERE key='schema_version'").fetchone()[0] == "4"
 
 
 def test_learning_os_context_constraints_and_fk():
@@ -73,6 +73,57 @@ def test_learning_os_context_constraints_and_fk():
         pass
     else:
         raise AssertionError("invalid/duplicate study_context should fail constraints")
+
+
+def test_learning_alert_lifecycle_schema():
+    conn = sqlite3.connect(":memory:")
+    conn.execute("PRAGMA foreign_keys=ON")
+    migrate(conn, root())
+
+    conn.execute(
+        """
+        INSERT INTO learning_alert(
+            alert_id, alert_type, detector_version, severity, status,
+            confidence, detected_at, evidence_snapshot_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            "a1", "misconception", "rules-v1", "high", "detected",
+            0.82, "2026-09-01T22:00:00+00:00", '{"unseen": 9, "wrong": 5}',
+        ),
+    )
+    conn.execute(
+        """
+        INSERT INTO learning_alert_event(event_id, alert_id, event_type, occurred_at, reason)
+        VALUES (?, ?, ?, ?, ?)
+        """,
+        ("e1", "a1", "detected", "2026-09-01T22:00:00+00:00", "synthetic fixture"),
+    )
+    conn.execute(
+        """
+        INSERT INTO learning_alert_event(event_id, alert_id, event_type, occurred_at)
+        VALUES (?, ?, ?, ?)
+        """,
+        ("e2", "a1", "acknowledged", "2026-09-01T22:01:00+00:00"),
+    )
+
+    assert conn.execute("SELECT severity, status FROM learning_alert WHERE alert_id='a1'").fetchone() == (
+        "high", "detected"
+    )
+    assert conn.execute("SELECT COUNT(*) FROM learning_alert_event WHERE alert_id='a1'").fetchone()[0] == 2
+
+    try:
+        conn.execute(
+            """
+            INSERT INTO learning_alert(
+                alert_id, alert_type, detector_version, severity, status, detected_at
+            ) VALUES ('a2', 'knowledge_gap', 'rules-v1', 'panic', 'detected', '2026-09-01T22:02:00+00:00')
+            """
+        )
+    except sqlite3.IntegrityError:
+        pass
+    else:
+        raise AssertionError("invalid alert severity should fail constraints")
 
 
 def test_question_staging_schema_accepts_minimal_mcq():
