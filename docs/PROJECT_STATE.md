@@ -14,7 +14,7 @@
 ### Repository / context
 - Root README and `docs/README.md` are canonical entrypoints.
 - `docs/PROJECT_CONTEXT_CANON.md` preserves conversation-level rationale, examples, rejected paths and conceptual evolution.
-- `docs/CONTEXT_PARITY_AUDIT.md` records conversation → repository decision parity.
+- `docs/CONTEXT_PARITY_AUDIT.md` records conversation + recovered-learning-corpus → repository decision parity.
 - `docs/CODEX_CONTEXT_HANDOFF.md` defines fresh Codex/VS Code context recovery.
 
 ### Exam/corpus foundation
@@ -34,26 +34,29 @@
 - `LEARNING_OPERATING_SYSTEM.md` is now normative for learning behavior.
 - `BATISMO_MASTERCLASS_INTEGRATION.md` defines strategic vs execution responsibilities.
 - `SCIENTIFIC_LEARNING_CANON.md` adds retrieval, spacing, feedback, elaboration, discrimination, metacognition, sleep and related science rules.
-- `EVIDENCE_FRAMEWORK.md` now separates practitioner outcome evidence, practitioner protocol evidence, scientific intervention evidence, mechanism evidence and candidate-local evidence.
+- `EVIDENCE_FRAMEWORK.md` separates practitioner outcome evidence, practitioner protocol evidence, scientific intervention evidence, mechanism evidence and candidate-local evidence.
 - ADR 0009 promotes Batismo/Masterclass to core Learning OS design authority.
 - ADR 0010 explicitly separates method efficacy from neuroscience-mechanism truth.
 
 ### Schema/runtime readiness
-- SQLite migration runner exists through schema v3.
+- SQLite migration runner is designed through schema v3.
 - Schema v3 adds `learning_intervention` and optional `study_context` so M001 evidence can preserve Batismo phase/session goal/readiness/intervention lineage without implementing the full adaptive engine.
 - Smoke tests were updated to expect v3 and validate Learning OS constraints/FKs.
+- The new v3 DDL was independently smoke-tested against SQLite for table creation, composite intervention FK, valid session context insertion and 1–5 range enforcement.
+- **The full repository pytest suite has not yet been executed on this branch in the current environment because the local container cannot reach GitHub.** Full suite execution remains a merge/implementation gate in Codex/VS Code/CI; do not report the branch as fully green until that runs.
 
 ## Immediate next action
 
-Execute M001 on `codex/m001-foundation` after this Learning OS hardening is merged/synchronized:
+After this Learning OS hardening is reviewed/merged, synchronize `codex/m001-foundation` and execute M001:
 1. recover context using `docs/CODEX_CONTEXT_HANDOFF.md` and Learning OS docs;
-2. build ingestion + canonical-load path;
-3. prove structured corpus import with >= 1,000 questions;
-4. prove one official VUNESP exam + independent final-key path;
-5. run local Mini-QC;
-6. persist the first real candidate attempt;
-7. persist/read minimal optional `study_context` (goal + provisional phase/context) without adding questionnaire friction;
-8. emit basic topic diagnostic.
+2. run the full existing test suite first;
+3. build ingestion + canonical-load path;
+4. prove structured corpus import with >= 1,000 questions;
+5. prove one official VUNESP exam + independent final-key path;
+6. run local Mini-QC;
+7. persist the first real candidate attempt;
+8. persist/read minimal optional `study_context` (goal + provisional phase/context) without adding questionnaire friction;
+9. emit basic topic diagnostic.
 
 ## Post-M001 priority
 
