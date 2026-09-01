@@ -112,6 +112,10 @@ Show at least one basic topic-level result from persisted attempts. This can be 
 - end-to-end session persistence;
 - one session context persistence/retrieval fixture.
 
+## Verification note for the v3 design change
+
+The schema-v3 `learning_intervention` / `study_context` DDL and its FK/range behavior were smoke-tested against SQLite while designing ADR 0009. The full repository pytest suite must still be run in an environment with the branch checkout (Codex/VS Code/CI) before M001 implementation work is considered green. Do not treat documentation-level review as a substitute for the repository test gate.
+
 ## Explicit non-goals
 
 No:
