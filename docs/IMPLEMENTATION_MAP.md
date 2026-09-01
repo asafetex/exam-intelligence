@@ -1,31 +1,32 @@
 # Implementation Map
 
-This document maps canonical domains to an intended modular-monolith code layout. It is a dependency guide, not a requirement to create empty abstractions prematurely.
+This document maps canonical domains to the intended modular-monolith layout. It is a dependency guide, not a requirement to create empty abstractions prematurely.
 
-Batismo 2.0 / Masterclass Neurociência are now first-class Learning OS authorities (ADR 0009). Therefore the `learning/` boundary is no longer a distant M005-only concern, although full adaptive behavior remains post-M001.
+Batismo 2.0 / Masterclass Neurociência are first-class Learning OS authorities (ADR 0009). Learning Alert & Remediation is a first-class loop (ADR 0011).
 
 ## Target package shape
 
 ```text
 src/exam_intelligence/
-├── app.py                     # FastAPI composition root
-├── config.py                  # environment/local paths
-├── db.py                      # connection + migration bootstrap
+├── app.py
+├── config.py
+├── db.py
 │
-├── domain/                    # pure domain types/rules where useful
+├── domain/
 │   ├── questions.py
 │   ├── exams.py
 │   ├── scoring.py
 │   ├── attempts.py
-│   └── learning.py            # phase/intervention value objects when needed
+│   ├── learning.py
+│   └── alerts.py              # alert types/severity/lifecycle value objects
 │
 ├── ingestion/
-│   ├── contracts.py           # staging schema-facing types
-│   ├── registry.py            # source/import ledger
-│   ├── quality.py             # quality gates/quarantine
-│   ├── normalize.py           # canonical normalization
-│   ├── identity.py            # versioned hashes/identity
-│   ├── loader.py              # staging → canonical DB
+│   ├── contracts.py
+│   ├── registry.py
+│   ├── quality.py
+│   ├── normalize.py
+│   ├── identity.py
+│   ├── loader.py
 │   └── adapters/
 │       ├── json_adapter.py
 │       ├── csv_adapter.py
@@ -48,22 +49,30 @@ src/exam_intelligence/
 │   ├── syllabus.py
 │   └── mapping.py
 │
-├── learning/                  # starts minimally in M001/M003; grows post-foundation
-│   ├── context.py             # study_context persistence/read models
-│   ├── phases.py              # Batismo phase rules (post-M001)
-│   ├── interventions.py       # versioned technique registry
-│   ├── readiness.py           # non-clinical execution gates
-│   ├── routing.py             # diagnosis → intervention
-│   ├── outcomes.py            # delayed/transfer intervention evidence
-│   └── protocols.py           # OQF/mesocycle/review orchestration later
+├── learning/
+│   ├── context.py
+│   ├── phases.py
+│   ├── interventions.py
+│   ├── readiness.py
+│   ├── routing.py
+│   ├── outcomes.py
+│   └── protocols.py
 │
-├── memory/                    # later FSRS integration
+├── alerts/                    # schema hook M001; behavior M003/M004
+│   ├── repository.py          # lifecycle persistence
+│   ├── detectors.py           # interpretable versioned detection rules
+│   ├── severity.py            # evidence sufficiency / severity policy
+│   ├── dedupe.py              # open-alert identity/cooldown
+│   ├── remediation.py         # alert → intervention assignment
+│   └── resolution.py          # retest / resolve / escalate policy
+│
+├── memory/
 │   ├── items.py
 │   └── scheduler.py
 │
-├── exam_intelligence/         # recurrence/family/Bank DNA analytics later
+├── exam_intelligence/         # recurrence/family/Bank DNA later
 │
-├── decision/                  # Today / prioritization after prerequisite evidence exists
+├── decision/
 │   ├── priority.py
 │   ├── today.py
 │   └── explain.py
@@ -79,92 +88,84 @@ Do not create all modules merely to match the diagram. Create boundaries when be
 ## Dependency direction
 
 ```text
-web → application/services → domain/persistence ports
+web → application/services → domain/persistence
 
-ingestion adapters → staging contract → canonical loader
+ingestion → staging → canonical loader
 assessment → candidate evidence
-candidate diagnostics → learning routing
-syllabus + exam intelligence + candidate state + Learning OS → decision
-learning outcomes → candidate/decision evidence
+candidate diagnostics → alert detection
+alert + phase/readiness → intervention routing
+intervention → retest/outcome
+syllabus + exam intelligence + candidate + open alerts + Learning OS → decision
 ```
 
-The deterministic scoring/identity/phase-rule core must not depend on web templates or LLM services.
+Scoring/identity/phase/alert baseline rules must not depend on web templates or mandatory LLM/network calls.
 
 ## M001 modules
 
-M001 still implements only the minimum vertical slice:
-- DB/migration bootstrap through schema v3;
-- ingestion contracts/registry/quality/normalization/identity/loader;
+M001 implements only:
+- DB/migrations through schema v4;
+- ingestion path;
 - structured adapters + one official PDF path;
-- assessment session/scoring/attempt services;
-- candidate basic metrics;
-- local web routes/templates;
-- **minimal `study_context` persistence/read path** so first evidence is Learning-OS-ready.
+- assessment session/scoring/attempt persistence;
+- basic candidate metrics;
+- local Mini-QC;
+- minimal `study_context` persistence/read path;
+- **alert lifecycle persistence/schema smoke test only** (`learning_alert`, `learning_alert_event`).
 
-M001 explicitly does **not** implement:
-- automatic Batismo phase inference;
-- readiness-based scheduling;
-- intervention routing;
-- OQF orchestration;
-- adaptive Today.
+M001 does **not** implement automatic alert detection, severity scoring, remediation, retest scheduling, phase inference or Today.
 
-## Near-term post-M001 boundaries
+## Post-M001
 
 ### M002 — syllabus
-Implement Atomic Tree/current edital and question mapping.
+Atomic Tree/current edital/question mapping.
 
-### M003 — candidate + learning telemetry
-Implement:
-- coverage-aware candidate state;
+### M003 — candidate + alert detection v0
+- coverage-aware state;
 - error taxonomy;
 - confident-wrong;
-- study context capture;
-- phase snapshot plumbing;
-- delayed-validation event model.
+- time/retention/readiness context;
+- deterministic alert candidates;
+- evidence sufficiency;
+- detector version/evidence snapshot;
+- alert dedup/cooldown.
 
-### M004 — Learning OS v1
-Implement:
+### M004 — Learning OS + remediation lifecycle
 - Batismo phase rules;
-- D1…Dn ranking inputs;
-- seeded/versioned intervention registry derived from recovered canon;
-- Masterclass readiness/task-difficulty gates;
-- diagnosis → intervention routing;
-- first weekly/mesocycle review.
+- D1…Dn;
+- Masterclass execution gates;
+- versioned intervention registry;
+- alert severity;
+- content vs execution routing;
+- remediation assignment;
+- retest/resolution/escalation;
+- first weekly/mesocycle closed loop.
 
-### Later
-Add FSRS/memory, deeper question learning packets, semantic families/Bank DNA, then Today/Decision as enough evidence exists.
-
-## Knowledge implementation boundary
-
-Private paid transcripts/videos are not application dependencies. The runtime consumes reviewed derived artifacts:
-- intervention definitions;
-- phase rules;
-- evidence/claim references;
-- protocol versions.
-
-The private source corpus is used for provenance/audit, not bundled into the public runtime.
+### M005+
+Retention/FSRS/intervention outcomes, Bank DNA/trap alerts, then Today/Decision.
 
 ## Interface rules
 
-- Provider adapters never write directly to canonical DB tables.
-- Web routes orchestrate services rather than implement identity/scoring/learning logic inline.
+- Provider adapters never write directly to canonical tables.
+- Web routes orchestrate services rather than implement scoring/identity/learning/alert logic inline.
+- Alert detectors receive explicit evidence read models and return versioned decisions; they do not mutate candidate history.
+- Alert lifecycle persistence is append-oriented through events.
+- Repeated detector runs update an unresolved underlying alert rather than spam duplicates.
 - Derived analytics should be recomputable from source evidence when practical.
-- Learning recommendations must reference a deterministic rule/intervention version even when an LLM helps explain them.
-- LLM/model-assisted code belongs behind explicit interfaces with provenance/version metadata.
-- No learning module may make medical/supplement decisions from telemetry.
+- Learning/alert recommendations reference rule/intervention versions even when an LLM helps explain them.
+- No learning/alert module may make medical/supplement decisions.
 
 ## Implementation philosophy
-
-The codebase should make this path progressively executable:
 
 ```text
 exam evidence
 → candidate evidence
-→ Batismo phase
-→ Masterclass execution gate
-→ diagnosed intervention
-→ active study
-→ delayed validation
+→ diagnosis
+→ enough evidence?
+→ alert / observe
+→ Batismo phase + Masterclass execution gate
+→ remediation/intervention
+→ delayed/unseen retest
+→ resolved or escalated
 → better next decision
 ```
 
