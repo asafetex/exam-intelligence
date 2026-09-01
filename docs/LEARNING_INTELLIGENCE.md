@@ -2,72 +2,186 @@
 
 ## Goal
 
-Choose an intervention based on the **diagnosed failure mode**, not on generic advice such as “study more” or “make flashcards.”
-
-## Intervention principle
+Choose an intervention from the **diagnosed failure mode + Batismo phase + Masterclass execution state + exam demand**, not from generic advice such as “study more” or “make flashcards.”
 
 ```text
-Atomic Topic + Candidate State + Error Type + Retention State
-                           ↓
-                    INTERVENTION
+Atomic Topic
++ Exam Importance
++ Candidate State
++ Error Type
++ Retention State
++ Batismo Phase
++ Readiness / Difficulty Context
+                         ↓
+                   INTERVENTION
 ```
 
-Examples:
+## Primary operating canon
+
+The Learning Engine treats the integrated Batismo 2.0 / Masterclass Neurociência doctrine as its exam-preparation operating prior.
+
+- Batismo supplies phase, allocation, 80/20→20/80 progression, D1…Dn logic, mesocycles, urgency, final stretch and simulation.
+- Masterclass supplies readiness, focus, task clarity, challenge-skill, feedback/progress, habit and frustration controls.
+- Learning science strengthens/refines the technique.
+- Candidate-local delayed outcomes personalize it.
+
+See `LEARNING_OPERATING_SYSTEM.md`.
+
+## Intervention routing
 
 | Diagnosed state | Candidate intervention class |
 |---|---|
-| No conceptual model | focused theory / worked example / concept map |
-| Knows but cannot retrieve | retrieval practice / memory item / spaced review |
-| Confuses two concepts | contrastive table + contrast questions |
-| Applies rule incorrectly | worked discrimination + targeted questions |
+| No conceptual model | focused theory / worked example / guided explanation → retrieval |
+| Knows but cannot retrieve | retrieval practice / memory item / spaced relearning |
+| Confuses two concepts | contrastive table/map + mixed discrimination questions |
+| Applies rule incorrectly | worked discrimination/procedure + targeted variants |
 | Falls for bank trap | distractor/wording drills |
-| Slow but correct | timed fluency practice |
-| Confident wrong | misconception correction + immediate contrast + delayed retest |
+| Slow but correct | timed fluency after correctness stabilizes |
+| Confident wrong | misconception correction + immediate contrast + delayed unseen retest |
 | Retention decay | spaced relearning / retrieval probe |
-| Coverage gap | targeted first exposure rather than more repetition of mastered nodes |
+| Coverage gap | first exposure / source validation rather than more repetition |
+| Attention error | task clarity/environment reset/shorter active block |
+| Source gap | repair/replace source then retest |
+| Repeated easy success | increase complexity/speed/variation or reduce support |
+| Repeated high-frustration failure | repair prerequisite/decompose/scaffold before more volume |
 
-## Periodization Engine
+## Phase changes the intervention
 
-The same intervention can have different value depending on preparation phase.
+The same error means different actions in different states.
 
-Canonical phases:
-1. Foundation
-2. Build
-3. Consolidation
-4. Specific Preparation
-5. Peak / Final Stretch
-6. Taper
+Example: a `knowledge_gap` in a low-weight topic:
+- `basic_80_20`: normal acquisition;
+- `basic_20_80`: exact-source targeted repair;
+- `mesocycle`: repair only if target/high leverage or prerequisite;
+- `countdown_10`: highly selective repair followed immediately by exam-like validation.
 
-Phase rules should eventually depend on days-to-exam, syllabus coverage, validated mastery, fatigue/workload and scoring structure, not just a fixed calendar.
+Therefore intervention selection must snapshot the Batismo phase.
 
-## Learning-method decomposition
+## Masterclass execution gates
 
-Practitioner methods are decomposed into operations rather than treated as indivisible brands.
+Before a demanding intervention:
 
-Examples:
-- OQF: diagnosis, periodization, active reading, revision, self-regulation, question-bank use, productivity, debrief.
-- Benites: question as teaching instrument, delayed consultation, comments/theory after attempt, own synthesis, question-driven material.
-- EARA: Study → Application → Review → Adaptation.
-- study cycles: flexible allocation instead of brittle fixed weekly schedules.
+1. confirm primary target and session goal;
+2. check readiness/fatigue constraints;
+3. reduce avoidable distraction;
+4. estimate challenge vs current skill;
+5. choose an active output;
+6. make feedback latency appropriate;
+7. define an observable exit metric;
+8. preserve recovery / next-session continuity.
 
-The system asks: **which operation solves this diagnosed problem?**
+The system infers favorable/poor learning conditions from behavior; it does not measure “flow” or neurotransmitters directly.
+
+## Technique families
+
+### Acquisition
+- optimized/directed reading;
+- worked examples;
+- concise explanation/video for documented ambiguity/prerequisite;
+- concept/contrast representation.
+
+### Retrieval
+- closed-book recall;
+- questions before consultation;
+- explain/produce from memory;
+- successful retrieval repeated after delay.
+
+### Application/discrimination
+- unseen bank questions;
+- mixed adjacent concepts;
+- semantic variants/question families;
+- rule-vs-exception and distractor drills.
+
+### Feedback/repair
+- decisive rule;
+- exact source locator;
+- error classification;
+- targeted restudy;
+- re-attempt.
+
+### Memory
+- atomic flashcard/memory item when forgetting is the actual bottleneck;
+- FSRS later schedules memory items, not the entire curriculum mechanically.
+
+### Simulation
+- progressively real format/timing/scoring/task switching;
+- post-simulation autopsy.
+
+### Behavior/adherence
+- stable cue;
+- minimum start;
+- if–then obstacle response;
+- proximal meaningful progress;
+- start-friction reduction.
+
+## Technique anti-patterns
+
+Do not default to:
+- long transcription summaries;
+- copying every error;
+- huge flashcard production before diagnosis;
+- passive video completion as mastery;
+- fixed review calendar independent of performance;
+- blind question volume;
+- “study until exhausted”;
+- reward/gamification that creates activity without learning.
+
+## Retrieval + elaboration, not false opposition
+
+Retrieval is a strong default versus passive restudy, but strong elaborative encoding can be valuable when building the model. Recent meta-analytic evidence shows the retrieval advantage over other good elaborative activities is smaller/context-dependent and strongly affected by corrective feedback.
+
+Operational rule:
+
+```text
+missing model → build/elaborate → retrieve
+existing model → retrieve → feedback → targeted elaboration/repair → retrieve later
+```
 
 ## Personal learning experiments
 
-Where reasonable, compare methods on comparable topics using delayed outcomes (e.g. immediate, D+3, D+7, D+21 or adaptive probes). Treat this as cautious N-of-1 evidence.
+When methods are both safe/plausible, compare them on comparable Atomic Topics.
 
-Do not optimize interventions solely for immediate post-study accuracy; durable retrieval is the target.
+Preserve:
+- triggering diagnosis;
+- phase;
+- readiness context;
+- protocol/version;
+- focused time;
+- immediate performance;
+- D+ delayed validation or adaptive retest;
+- transfer/exam-like validation;
+- candidate effort/friction.
+
+Do not optimize solely for immediate accuracy.
+
+## Outcome decision
+
+Every intervention should eventually resolve to:
+- `maintain`;
+- `adapt`;
+- `replace`;
+- `investigate`;
+- `progress`.
+
+The criterion is improved durable/exam-relevant performance per cost, not loyalty to a technique.
+
+## Practitioner outcome evidence
+
+Batismo/Masterclass real-world outcome history is a distinct evidence lane. Where cohort/approval data is documented, link it to method version and context. This evidence can justify a strong operational prior even when a specific neuroscience mechanism remains uncertain.
 
 ## Intervention outcome log
 
-Later, each intervention instance should preserve:
-- diagnosis that triggered it;
-- intervention protocol/version;
+Later, each intervention instance preserves:
+- diagnosis;
+- Batismo phase;
+- intervention ID/version;
+- practitioner/science source refs;
 - study time;
-- target topic(s);
+- target nodes;
 - immediate result;
-- delayed validation result;
-- context/phase;
-- candidate effort/fatigue notes when useful.
+- delayed validation;
+- transfer/simulation result;
+- readiness/context;
+- decision: maintain/adapt/replace/investigate/progress.
 
-This allows the Decision Engine to learn which interventions work best for this candidate under specific conditions.
+This dataset is how the Learning Engine becomes personally intelligent rather than generically “evidence-based.”
