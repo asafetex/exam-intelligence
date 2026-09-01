@@ -10,9 +10,10 @@
 - Candidate evidence is append-oriented and scoring must be reproducible.
 - Questions may exist without an official exam occurrence (manual/AI/user-created).
 - Learning decisions must preserve the **phase/intervention/context that existed when the session occurred**.
+- Learning alerts must preserve the **evidence snapshot, detector version and lifecycle history** that caused a plan change.
 - Readiness telemetry is educational context, never a clinical diagnosis.
 
-**Current schema version:** 3.
+**Current schema version:** 4.
 
 ## Ingestion / provenance
 ### source_provider
@@ -88,11 +89,11 @@ Reserved for semantic recurrence; V0 can leave empty.
 ### Recurrence semantics — frozen rule
 Recurrence is evidence, not a deduplication artifact.
 
-- **Source duplicate:** the same official occurrence imported from multiple providers/files remains **one `question_occurrence`** with multiple source links. It must not increase recurrence.
-- **Booklet/form duplicate:** the same item appearing in multiple cadernos/forms of the **same exam event** must not be counted as independent historical recurrence.
-- **True cross-exam exact repetition:** if the same canonical `question` appears in genuinely different exam events/years, preserve **one canonical question with multiple `question_occurrence` rows**. Each independent exam occurrence is a real recurrence signal.
+- **Source duplicate:** same official occurrence imported from multiple providers/files remains one `question_occurrence` with multiple source links. It must not increase recurrence.
+- **Booklet/form duplicate:** same item in multiple cadernos/forms of the same exam event must not count as independent historical recurrence.
+- **True cross-exam exact repetition:** same canonical `question` appearing in genuinely different exam events/years remains one canonical question with multiple `question_occurrence` rows. Each independent exam occurrence is a real recurrence signal.
 - **Semantic recurrence:** different questions testing the same proposition/pattern may later be grouped in `question_family`.
-- **Atomic-topic recurrence:** frequency at taxonomy-node level is a third, broader signal.
+- **Atomic-topic recurrence:** frequency at taxonomy-node level is a broader signal.
 
 Deduplication removes duplicated representations of the same occurrence, never legitimate repeated use across different exams.
 
@@ -150,10 +151,63 @@ Fields introduced in schema v3:
 - next action;
 - extensible `context_json`.
 
-This table exists now so M001 evidence does not become contextless once Batismo/Masterclass adaptive logic is implemented.
+This exists so M001 evidence does not become contextless once Batismo/Masterclass adaptive logic is implemented.
 
 ### Why context is snapshotted
-A session classified `basic_20_80` under `batismo-v1` must remain reproducible after a future `batismo-v2` changes rules. Never retrospectively rewrite old phase/intervention context as though the new rule had existed historically.
+A session classified `basic_20_80` under `batismo-v1` must remain reproducible after a future `batismo-v2` changes rules. Never retrospectively rewrite old phase/intervention context.
+
+## Learning Alert & Remediation Engine
+
+### learning_alert
+Current identity and latest state of a material learning/performance problem.
+
+Schema v4 fields:
+- `alert_id`;
+- `alert_type`;
+- `detector_version`;
+- optional target exam / Atomic Topic;
+- severity: `watch | medium | high | critical`;
+- lifecycle status;
+- detector confidence/uncertainty when available;
+- detection / last-evaluation / resolution timestamps;
+- resolution policy version;
+- current reason;
+- immutable-at-detection evidence snapshot JSON plus extensible metadata.
+
+Canonical alert types are defined in `LEARNING_ALERT_ENGINE.md` and include knowledge gap, misconception, concept confusion, retention decay, coverage gap, source gap, bank trap, time/fluency and attention/execution.
+
+### learning_alert_event
+Append-oriented lifecycle/evidence history for one alert.
+
+Events include:
+- detected/evaluated;
+- acknowledged;
+- remediation assigned/started/completed;
+- retest scheduled/retested;
+- resolved/escalated/observe;
+- suppressed/superseded.
+
+An event may link to:
+- practice session;
+- attempt;
+- versioned intervention;
+- structured payload/reason.
+
+### Alert semantics
+An alert is not created from a raw error count alone. Detection may consider sample size, novelty, error type, confidence, coverage, persistence, time, retention, exam leverage and phase.
+
+Repeated detector runs should update the same unresolved underlying alert instead of producing spam. Suggested logical identity:
+
+```text
+target exam
++ taxonomy node / transversal skill
++ alert type
++ detector major version
+```
+
+Resolution requires evidence appropriate to the alert, preferably delayed/unseen/equivalent validation. Clicking “done” is not mastery evidence.
+
+M001 does not need to detect alerts automatically; schema v4 exists so early attempts can later feed the loop without destructive redesign.
 
 ## Authority Graph
 ### legal_authority
@@ -179,4 +233,4 @@ Do not create these until their behavior is implemented, but preserve the concep
 - `day_context` — optional once-per-day readiness context;
 - `practitioner_outcome_record` — auditable cohort/result evidence for methods.
 
-See `LEARNING_TELEMETRY.md` and ADRs 0009–0010.
+See `LEARNING_TELEMETRY.md`, `LEARNING_ALERT_ENGINE.md`, and ADRs 0009–0010.
