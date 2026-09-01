@@ -4,34 +4,25 @@
 
 Prove the complete vertical slice from real source ingestion to real candidate telemetry without expanding product scope.
 
-M001 is still the data/assessment foundation. After the Batismo/Masterclass integration decision (ADR 0009), it must also ensure that the first candidate evidence is **Learning-OS-ready** rather than contextless.
+M001 is still the data/assessment foundation. It must ensure the first candidate evidence is **Learning-OS-ready and Alert-Engine-ready** rather than contextless.
 
 ## Why M001 comes first
 
-The intelligence layers depend on trustworthy data. Before advanced Atomic Tree, Bank DNA or adaptive recommendations, the project must prove that it can ingest thousands of questions, preserve identity/provenance, execute a question locally and persist a reproducible attempt.
+Before advanced Atomic Tree, Bank DNA, adaptive recommendations or automatic remediation, the project must prove that it can ingest thousands of questions, preserve identity/provenance, execute a question locally and persist reproducible evidence.
 
-At the same time, we now know the eventual decision engine needs phase/readiness/intervention context. Schema v3 therefore adds minimal hooks; it does **not** implement full Batismo/Masterclass adaptation in M001.
+We already know future decisions depend on phase/readiness/intervention context and on a closed alert→remediation→retest lifecycle. Schema v4 therefore adds minimal hooks; M001 does **not** implement automatic alert detection or remediation.
 
 ## Scope
 
 ### A. Database/migrations
-- run ordered migrations programmatically through schema v3;
+- run ordered migrations programmatically through schema v4;
 - verify idempotent startup;
 - preserve foreign keys/WAL/busy timeout;
 - no destructive rewrite of merged migration history;
-- verify `learning_intervention` + `study_context` constraints without building adaptive scheduling yet.
+- verify `learning_intervention`, `study_context`, `learning_alert` and `learning_alert_event` constraints/FKs.
 
 ### B. Structured ingestion
-Support:
-- JSON/JSONL;
-- CSV;
-- XLSX;
-- smart header detection/mapping;
-- combined options/delimiter handling;
-- preview;
-- missing/ambiguous field detection;
-- staging-contract validation;
-- quarantine ledger.
+Support JSON/JSONL, CSV and XLSX with smart mapping, preview, validation and quarantine.
 
 Acceptance dataset: **≥1,000 structured questions**.
 
@@ -45,11 +36,11 @@ Acceptance dataset: **≥1,000 structured questions**.
 Ingest at least one real VUNESP exam PDF and its final answer-key PDF independently.
 
 Requirements:
-- preserve original source asset/hash;
+- immutable source/hash;
 - native extraction first, OCR fallback only where needed;
 - preserve shared stimulus/media or quarantine incomplete item;
 - validate question/key counts;
-- answer-key updates are versioned, not destructive.
+- answer-key updates versioned, not destructive.
 
 ### E. Identity/load
 - normalize canonical question/options;
@@ -59,81 +50,75 @@ Requirements:
 - load canonical entities into SQLite.
 
 ### F. Mini-QC
-Local FastAPI/Jinja/HTMX page:
+Local FastAPI/Jinja/HTMX page with:
 - one question at a time;
 - progress;
 - timer;
 - answer controls appropriate to type;
 - confidence 1–5 committed before feedback;
 - submit/next;
-- minimal verdict in learn/validate semantics.
+- minimal learn/validate semantics.
 
 ### G. Candidate persistence
-Persist:
-- session;
-- ordered session item;
-- response/blank/skip status;
-- first/final response when supported;
-- answer-changed flag;
-- time;
-- confidence;
-- correctness/score;
-- key/scoring snapshot;
-- timestamps;
-- exposure/seen metadata where available.
+Persist session/item, response/blank/skip, first/final response where supported, answer-change state, time, confidence, correctness/score, key/scoring snapshot, timestamps and exposure metadata where available.
 
 ### H. Minimal Learning OS context hook
-For at least one M001 session, prove the system can persist/read an optional `study_context` without requiring the future adaptive engine.
+For at least one session, persist/read optional `study_context` with:
+- session goal;
+- optional/provisional Batismo phase;
+- one readiness/context field;
+- one task-context field;
+- completion/next action;
+- optional intervention reference.
 
-Minimum demo:
-- `session_goal`;
-- optional Batismo `phase_code` (can be manually supplied/provisional);
-- one readiness/context field such as `alertness_1_5`;
-- one task-context field such as `task_clarity_1_5` or `perceived_difficulty_1_5`;
-- optional intervention reference if a seeded intervention is used;
-- next action or completion status.
+Do not add a long mandatory questionnaire.
 
-The normal Mini-QC flow must remain fast. Do not add a long mandatory questionnaire.
+### I. Alert Engine schema hook
+Prove the alert lifecycle storage can be created and read without implementing the detector.
 
-### I. First diagnostic
-Show at least one basic topic-level result from persisted attempts. This can be descriptive; no advanced mastery model in M001.
+Synthetic test/demo only:
+- create one `learning_alert` linked to a taxonomy node when available or without node during schema test;
+- append at least `detected` and one subsequent lifecycle event;
+- validate severity/status constraints and intervention/session/attempt FKs where used.
+
+No user-facing alert detector is required in M001.
+
+### J. First diagnostic
+Show at least one basic topic-level result from persisted attempts. Descriptive only; no advanced mastery/alert model in M001.
 
 ## Required tests
 
-- migration from empty DB and rerun idempotence through v3;
-- Learning OS context/FK/range constraints;
+- migrations through v4 + idempotence;
+- Learning OS context constraints/FKs;
+- Learning Alert lifecycle constraints/FKs;
 - staging schema validation;
 - CSV/XLSX/JSON mapping cases;
 - source duplicate vs cross-exam recurrence fixture;
 - alternate option-order/caderno fixture;
 - answer-key version fixture;
 - quarantine fixture for missing image/stimulus;
-- scoring policy fixture;
+- scoring fixture;
 - end-to-end session persistence;
-- one session context persistence/retrieval fixture.
-
-## Verification note for the v3 design change
-
-The schema-v3 `learning_intervention` / `study_context` DDL and its FK/range behavior were smoke-tested against SQLite while designing ADR 0009. The full repository pytest suite must still be run in an environment with the branch checkout (Codex/VS Code/CI) before M001 implementation work is considered green. Do not treat documentation-level review as a substitute for the repository test gate.
+- session context persistence/retrieval.
 
 ## Explicit non-goals
 
 No:
+- automatic alert detection/severity calculation;
+- alert-driven D1 reprioritization;
+- remediation assignment/retest scheduler;
 - automatic Batismo phase inference;
 - adaptive readiness scheduler;
-- full OQF 30-day engine;
-- semantic embeddings;
-- semantic question-family clustering;
+- full OQF engine;
+- semantic family clustering;
 - Bank Trap DNA;
-- full private-course ingestion;
-- deep Question Learning Packets;
 - FSRS UI;
-- adaptive Today queue;
+- adaptive Today;
 - IRT/TRI;
 - auth/React/cloud DB/gamification.
 
 ## Definition of done
 
-A developer can clone the repo, install dependencies, import a 1,000+ question corpus plus one official VUNESP exam/key, start the local server, answer a question with timer/confidence, persist a reproducible attempt, optionally attach minimal learning context, and inspect a basic topic result. All ingestion ambiguity is visible in the ledger rather than silently discarded.
+A developer can clone the repo, install dependencies, import a 1,000+ question corpus plus one official VUNESP exam/key, run Mini-QC, persist a reproducible attempt, attach minimal optional study context, validate the alert-lifecycle schema hook, and inspect a basic topic result.
 
-The resulting evidence is sufficient to feed future Batismo/Masterclass phase and intervention logic without redesigning the session model.
+The resulting evidence can later feed Candidate Intelligence → Learning Alert Engine → Intervention → Retest without destructive redesign.
