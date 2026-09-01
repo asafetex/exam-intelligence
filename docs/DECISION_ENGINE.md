@@ -4,73 +4,82 @@
 
 > **What should I study today, for how long, by which method, under which conditions, and why?**
 
-The Decision Engine combines exam evidence, candidate evidence and the Batismo/Masterclass Learning Operating System. It does not manufacture precision from sparse data and it does not reduce study planning to “weakest subject first.”
+The Decision Engine combines exam evidence, candidate evidence, open Learning Alerts and the Batismo/Masterclass Learning Operating System. It does not reduce planning to “weakest subject first.”
 
 ## Decision order
 
 ```text
-1. safety / current official constraints
+1. safety / official constraints
 2. primary exam target
 3. Batismo phase
 4. exam-side priority
 5. candidate gap / coverage / retention
-6. biological readiness / workload context
-7. task clarity / attention environment
-8. challenge-skill match
-9. intervention selection
-10. feedback/retest design
-11. recovery/continuity
-12. next measurement and adaptation
+6. open Learning Alerts + severity/persistence
+7. readiness / workload context
+8. task clarity / attention environment
+9. challenge-skill match
+10. remediation/intervention selection
+11. retest / resolution design
+12. recovery/continuity
+13. next measurement and adaptation
 ```
 
-This order is derived from the integrated Batismo/Masterclass canon. Readiness can change **how/when** a high-priority target is studied without necessarily changing its strategic importance.
+A high-priority alert can change what is studied next. A weak `WATCH` signal should not hijack the plan.
 
 ## Inputs
 
 ### Exam-side
-- current edital/Atomic Tree;
+- edital/Atomic Tree;
 - historical incidence;
-- exact recurrence / semantic-family recurrence;
+- exact/semantic recurrence;
 - recency;
 - bank/role/organization similarity;
 - scoring policy;
 - legal/content changes;
-- time to exam;
+- days to exam;
 - prerequisite centrality.
 
 ### Candidate-side
 - validation/exam accuracy;
 - tree coverage;
 - novelty/exposure;
-- confidence calibration;
+- confidence/calibration;
 - response time;
-- retention trajectory;
+- retention;
 - error/trap patterns;
-- intervention outcomes;
 - source gaps;
-- D1…Dn priority state.
+- D1…Dn state;
+- intervention outcomes.
+
+### Learning Alert-side
+- open alert type;
+- severity;
+- detector/evidence confidence;
+- persistence/episode history;
+- prerequisite impact;
+- remediation status;
+- retest due/failed;
+- prior interventions and outcomes.
 
 ### Learning OS
-- Batismo phase;
-- target/maintenance allocation;
-- permitted technique families;
-- readiness/alertness context where tracked;
+- Batismo phase/allocation;
+- readiness/alertness;
 - task clarity;
-- perceived difficulty/frustration;
-- distraction/start friction;
-- due delayed validation/relearning;
+- difficulty/frustration;
+- attention/start friction;
+- due retrieval/relearning;
 - OQF/mesocycle state.
 
 ### Operational context
-- available study time;
+- available time;
 - obligations/workload;
 - best observed high-alert window;
-- pending due reviews/retests;
+- pending retests;
 - simulation/logistics constraints.
 
 ## Priority baseline
 
-Start interpretable. Conceptually:
+Start interpretable:
 
 ```text
 priority ≈ exam_leverage
@@ -81,143 +90,199 @@ priority ≈ exam_leverage
          × phase_urgency
 ```
 
-Then use measured modifiers such as:
+Then use interpretable modifiers:
 - recurrence;
 - response-time risk;
 - confidence/misconception risk;
 - prerequisite value;
 - intervention effectiveness;
-- maintenance requirement.
+- maintenance requirement;
+- **open alert severity/persistence**;
+- **failed remediation/retest**.
 
-Readiness should usually modify **task scheduling/dose**, not erase long-term strategic importance.
-
-Do not jump directly to deep ML.
-
-## Intervention selection examples
-
-### High-value topic, no usable model
+Conceptually:
 
 ```text
-Target: Administrative Law > X
-State: UNSEEN / no conceptual model
-Phase: basic_80_20
-Action: 30 min directed theory + 8 diagnostic/retrieval items
-Success: explain rule without notes + adequate unseen follow-up
+alert_priority_modifier
+≈ severity
+× exam_leverage
+× persistence
+× prerequisite_value
+× repair_opportunity
 ```
 
-### High-value topic, confident wrong
+No frozen numeric formula until data supports calibration.
+
+## Alert-aware decisions
+
+### `WATCH`
+Collect more evidence or schedule targeted validation. Do not automatically replace the plan.
+
+### `MEDIUM`
+Surface and schedule a bounded targeted action/retest.
+
+### `HIGH`
+Enter remediation queue and materially alter allocation when exam leverage supports it.
+
+### `CRITICAL`
+May block progression on a high-leverage prerequisite/misconception until repaired or explicitly overridden.
+
+## Examples
+
+### High-value misconception
 
 ```text
-Target: Criminal Procedure > Y
-State: 3 confident-wrong events
-Phase: basic_20_80 / mesocycle
-Action: contrastive misconception repair + 12 unseen discrimination items
-Success: delayed unseen validation
+Target: Administrative Law > Revocation
+Alert: HIGH / MISCONCEPTION
+Evidence:
+- weak unseen validation
+- repeated high-confidence wrong
+- adequate sample breadth
+- high exam relevance
+Phase: basic_20_80
+Action:
+- Revocation × Annulment contrastive repair
+- 10–12 mixed unseen items
+- delayed retest
+Resolution:
+- successful delayed unseen validation
 ```
 
-### High-priority D1 but readiness low
+### Execution alert, not content alert
 
 ```text
-Strategic target: mathematics D1
-Alertness: 1/5 after significant poor sleep
-Action now: light correction/retrieval or organize exact source gaps
-Reschedule: hard unseen math set to best available alert window
-Reason: preserve target while avoiding low-quality high-cost learning
+Target: Portuguese
+Alert: HIGH / ATTENTION_EXECUTION
+Evidence:
+- conceptual accuracy acceptable
+- repeated EXCETO/NÃO mistakes
+- errors cluster under low alertness/time pressure
+Action:
+- parsing/execution protocol + shorter timed block
+Not action:
+- reread the whole grammar source
 ```
 
-### Too easy
+### Coverage warning
 
 ```text
-Accuracy: very high
-Confidence: high
-Latency: low
-Perceived difficulty: 1/5
-Action: reduce support, increase semantic variation/interleaving or move to next target
+Local accuracy: 90%
+Atomic Tree breadth: low
+Repeated-item concentration: high
+Alert: WATCH/MEDIUM — COVERAGE_GAP
+Action:
+- expand unseen sampling before declaring mastery
 ```
 
 ## Today output contract
 
-Each action is explainable:
+Each action should expose:
 
 ```text
 55 min — Administrative Acts > Revocation
 Phase: basic_20_80
+Alert: HIGH / MISCONCEPTION
 Why:
 - high exam leverage
-- unseen validation = weak
-- adequate sample breadth
-- 3 recent confident-wrong events
-- exact recurrence/family evidence relevant
+- 5/9 unseen errors
+- 3 high-confidence wrong
+- adequate evidence breadth
 Method:
 - contrastive repair
 - 12 unseen bank questions
-Session condition:
-- place in high-alert window
-Feedback:
-- answer first; reveal rule/source after commitment
+Condition:
+- high-alert window
 Success check:
-- delayed unseen validation
+- delayed unseen retest
+If retest fails:
+- escalate diagnosis/intervention instead of repeating blindly
 ```
+
+## Closed-loop requirement
+
+A Today action created from an alert must eventually be able to answer:
+
+```text
+What alert triggered this?
+What evidence supported it?
+What intervention was assigned?
+What did it cost?
+What happened immediately?
+What happened on delayed/transfer retest?
+Was the alert resolved or escalated?
+```
+
+Without this lineage, the system cannot learn which remediation works.
 
 ## Proximal progress
 
-The system should surface meaningful progress:
+Show meaningful progress:
 - nodes validated;
-- errors repaired;
+- alerts resolved;
+- misconceptions repaired;
 - delayed retrieval passed;
-- response-time improvements;
+- response time improved;
 - weighted coverage gained;
-- simulation score/strategy improved;
-- next milestone.
+- simulation score/strategy improved.
 
-Do not substitute vanity XP for learning evidence.
+Do not substitute vanity XP or alert-count reduction without validation.
 
 ## OQF / cycle evaluation
 
-For a 30-day or mesocycle experiment, compare baseline vs end-state:
-- adherence/valid sessions;
-- active production;
+Compare baseline vs end-state:
+- adherence;
+- active output;
 - weighted coverage;
 - validation accuracy;
 - delayed retention;
 - time/omissions;
-- error pattern;
+- error distribution;
+- alerts opened/resolved/escalated;
 - simulation/exam-specific result.
 
 Then output:
 `maintain | adapt | replace | investigate | progress`.
 
-## Baselines and backtesting
+## Baselines/backtesting
 
-Advanced prioritization must beat simple alternatives such as:
-- weakest-topic-first;
+Advanced prioritization must beat simple alternatives:
+- weakest-first;
 - highest-frequency-first;
 - equal allocation;
 - due-retest-first;
-- Batismo phase template without personalization.
+- unpersonalized Batismo template;
+- alert-count-only ranking.
 
-Use held-out later exams or prospective candidate performance where possible. If added complexity does not improve decisions, discard it.
+If complexity does not improve later performance/decision quality, remove it.
 
 ## Uncertainty
 
-The engine must be allowed to say:
-- insufficient coverage;
-- weak historical evidence;
-- new syllabus area;
+The engine must be able to say:
+- insufficient evidence;
+- weak coverage;
+- repeated-item contamination;
+- alert uncertain;
 - source gap;
-- candidate evidence contaminated by repeated items;
 - intervention effect unknown;
-- readiness data missing;
+- readiness missing;
 - model disagreement.
 
-False precision is worse than an explicit uncertainty state.
+False precision is worse than explicit uncertainty.
 
 ## Hard rule
 
-The Decision Engine never outputs a learning action justified only by a neuroscience label. It outputs observable intervention logic:
+The Decision Engine outputs:
 
 ```text
-problem → intervention → evidence → metric → adjustment
+problem
+→ evidence sufficiency
+→ alert/observe
+→ intervention
+→ retest
+→ resolved/escalated
+→ next decision
 ```
 
-See `LEARNING_OPERATING_SYSTEM.md`, `PERIODIZATION_ENGINE.md`, and `LEARNING_TELEMETRY.md`.
+Never justify an action only with a neuroscience label or an uncalibrated error count.
+
+See `LEARNING_ALERT_ENGINE.md`, `LEARNING_OPERATING_SYSTEM.md`, `PERIODIZATION_ENGINE.md`, and `LEARNING_TELEMETRY.md`.
