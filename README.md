@@ -1,39 +1,65 @@
 # Exam Intelligence
 
-> Local-first intelligence system for competitive-exam preparation. It converts exam evidence, candidate behavior and learning-science rules into the best next study action.
+> Local-first intelligence system for competitive-exam preparation. It combines **exam evidence + candidate telemetry + Batismo 2.0 / Masterclass Neurociência operating doctrine + learning science** to choose the best next study action.
 
-**Status:** V0 architecture frozen · **Active milestone:** M001 — Corpus In → First Attempt Out · **Primary runtime:** Python + FastAPI + Jinja/HTMX + SQLite
+**Status:** V0 architecture frozen · Learning OS canonicalized · **Active milestone:** M001 — Corpus In → First Attempt Out · **DB schema:** v3 · **Runtime:** Python + FastAPI + Jinja/HTMX + SQLite
 
 ## Why this exists
 
 Most exam platforms optimize for content access, question volume, dashboards or engagement. Exam Intelligence optimizes for a different question:
 
-> **What should the candidate study now, for how long, with which intervention, and why?**
+> **What should the candidate study now, for how long, with which intervention, under which conditions, and why?**
 
-The system is designed as a closed evidence loop:
+The system is a closed learning loop:
 
 ```text
 TARGET EXAM
     ↓
-Edital + Atomic Tree + historical exams + Bank DNA
+Edital + Atomic Tree + historical exams + recurrence + scoring
     ↓
-QUESTION CORPUS
+QUESTION / SOURCE CORPUS
     ↓
-Candidate answers + time + confidence + repetition history
+Candidate answers + time + confidence + exposure + session context
     ↓
-CANDIDATE MODEL
+CANDIDATE DIAGNOSIS
     ↓
-Gap / retention / interpretation / trap / calibration diagnosis
+BATISMO PHASE
+(material validation / 80-20 / 20-80 / mesocycle / final states)
+    ↓
+MASTERCLASS EXECUTION GATES
+(readiness / focus / clarity / difficulty / feedback / recovery)
     ↓
 LEARNING INTERVENTION
+(retrieval / theory / contrast / questions / memory / simulation / behavior)
     ↓
-New evidence
+Delayed validation / transfer / exam evidence
     ↓
 DECISION ENGINE
     ↺
 ```
 
-The end product is not a generic dashboard. The end product is a defensible **Today** queue: what to study, how, for how long, and why that activity has the highest expected return.
+The end product is not a generic dashboard. The end product is a defensible **Today** queue: what to study, how, for how long, in which state, and why that activity has the highest expected return.
+
+## The Learning Operating System
+
+Batismo 2.0 and the Masterclass Neurociência are **not optional content modules** in this project.
+
+The recovered source corpus established two complementary roles:
+
+- **Batismo 2.0** controls the strategic preparation state: material validation, basic formation `80/20 → 20/80`, D1…Dn prioritization, mesocycles, urgency, final-stage templates and simulation/debrief.
+- **Masterclass Neurociência** controls session execution: target focus, readiness/alertness, task clarity, challenge-skill calibration, active practice, feedback/progress, start friction/habit, frustration and recovery.
+- **Learning science** strengthens/refines the techniques and corrects overconfident causal explanations where necessary.
+- **Candidate-local evidence** personalizes the doctrine: interventions that do not improve delayed/exam-relevant performance are adapted or replaced.
+
+Canonical principle:
+
+> **A practical method can work even if one proposed biological explanation is incomplete. Method efficacy, practitioner outcome evidence and mechanism truth are tracked separately.**
+
+See:
+- `docs/LEARNING_OPERATING_SYSTEM.md`;
+- `docs/BATISMO_MASTERCLASS_INTEGRATION.md`;
+- `docs/SCIENTIFIC_LEARNING_CANON.md`;
+- ADRs `0009` and `0010`.
 
 ## Core product domains
 
@@ -41,62 +67,76 @@ The end product is not a generic dashboard. The end product is a defensible **To
 |---|---|---|
 | **Exam Intelligence** | What matters on the target exam? | edital, Atomic Tree, bank, role, organ, year, recurrence, scoring policy, legal/version context |
 | **Candidate Intelligence** | What does the candidate actually demonstrate? | correctness, score, time, confidence, novelty, coverage, retention, answer changes, error taxonomy |
-| **Learning Intelligence** | Which intervention is most likely to fix the diagnosed state? | Learning Canon, OQF/Benites corpus, retrieval/spacing evidence, personal experiments |
-| **Decision Intelligence** | Where should the next hour go? | exam importance × mastery gap × coverage need × retention × time-to-exam × intervention value |
+| **Learning Intelligence** | Which intervention fixes the diagnosed state in the current phase/condition? | Batismo, Masterclass, learning science, intervention outcomes, delayed validation |
+| **Decision Intelligence** | Where should the next hour go? | exam leverage × gap × coverage × retention × phase × readiness × intervention value × time-to-exam |
 
 ## Architectural thesis
 
 ```text
-                    EXAM INTELLIGENCE
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-          ▼                ▼                ▼
-   KNOWLEDGE ENGINE   EXAM ENGINE     CANDIDATE ENGINE
-          │                │                │
-          └────────────────┼────────────────┘
-                           ▼
-                    DECISION ENGINE
-                           │
-                           ▼
-                 O QUE FAZER AGORA?
+                         EXAM INTELLIGENCE
+                                │
+                 ┌──────────────┼──────────────┐
+                 ▼              ▼              ▼
+             EXAM ENGINE   CANDIDATE ENGINE  KNOWLEDGE
+                 │              │              │
+                 └──────────────┼──────────────┘
+                                ▼
+                         DIAGNOSIS ENGINE
+                                ▼
+                      LEARNING OPERATING SYSTEM
+                  Batismo + Masterclass + Science
+                                ▼
+                       INTERVENTION ENGINE
+                                ▼
+                         NEW EVIDENCE
+                                ▼
+                         DECISION ENGINE
+                                ▼
+                         O QUE FAZER AGORA?
+                                ↺
 ```
 
 The project is **source-agnostic**. Quest API, CSV/XLSX/JSON, official PDFs, answer-key PDFs, public datasets and manually created questions all pass through adapters into the same staging contract and canonical model.
 
 ## Non-negotiable semantics
 
+### Exam/data semantics
 - **Question identity ≠ exam occurrence ≠ presentation.**
-- **Source duplication ≠ historical recurrence.** The same PF 2025 question imported twice is one occurrence; the same canonical question appearing in PF 2021 and PF 2025 is two legitimate historical signals.
+- **Source duplication ≠ historical recurrence.** The same PF 2025 occurrence imported twice is one occurrence; the same canonical question appearing in PF 2021 and PF 2025 is two legitimate historical signals.
 - **Official bank key ≠ universal truth.** It records what counted for that bank, exam and key version.
-- **Accuracy ≠ mastery.** Mastery is coverage-aware and must consider novelty, sample size, recency, confidence and retention.
 - **Generated questions never contaminate official Bank DNA.**
 - **Historical frequency is evidence, not certainty.**
 - **Raw sources and provenance are immutable.**
-- **Legal authority is time-versioned.** Historical questions must be interpreted against the legal/jurisprudential context valid at the exam date.
+- **Legal authority is time-versioned.**
 
-## What V0 contains
+### Learning semantics
+- **Accuracy ≠ mastery.** Mastery is coverage/novelty/retention/confidence aware.
+- **Immediate performance ≠ durable learning.** Delayed unseen/equivalent validation matters.
+- **Error ≠ generic “do more questions.”** Error type routes intervention.
+- **80/20 and 20/80 are phase/allocation logic, not universal minute formulas.**
+- **Batismo phase is historical context.** Snapshot model/version with the session.
+- **Readiness modifies task/dose/timing; it is not diagnosis.**
+- **Neuroscience labels are not user KPIs.** No dopamine/BDNF score or automated clinical inference.
+- **Practitioner outcomes and scientific mechanisms are distinct evidence lanes.**
 
-V0 freezes the structural contracts needed so future features can be appended rather than requiring a redesign:
+## Batismo-aligned preparation states
 
-- source registry and rights/provenance metadata;
-- structured and document ingestion contracts;
-- staging + quality gates + quarantine ledger;
-- canonical exam / exam-form / question / occurrence / option model;
-- independent provisional/final/changed/annulled answer-key history;
-- versioned question identity and presentation hashing;
-- rich stimulus/media references;
-- Atomic Tree and source-faithful syllabus mapping hooks;
-- assessment sessions with reproducible ordering/scoring snapshots;
-- candidate attempts with answer, blank/skip status, time, confidence and correctness;
-- Authority Graph hooks;
-- question-family/recurrence hooks;
-- memory/FSRS hooks;
-- ordered SQLite migrations and backup rules.
+```text
+intake
+→ material_validation
+→ basic_80_20
+→ basic_20_80
+→ mesocycle | edital_imminent | surprise_subject | final_sprint_50 | countdown_10
+→ simulation
+→ exam
+→ post_exam
+```
+
+Calendar durations in practitioner material are templates unless current exam/candidate evidence justifies a hard boundary. The engine should transition primarily on coverage, performance, urgency and capacity.
 
 ## M001 — Corpus In → First Attempt Out
 
-M001 proves one vertical slice end-to-end:
+M001 remains deliberately narrow. It proves the trustworthy evidence foundation and adds only minimal Learning-OS-ready hooks:
 
 ```text
 1,000+ structured questions + 1 official VUNESP exam/key
@@ -109,40 +149,62 @@ M001 proves one vertical slice end-to-end:
                          ↓
               normalize / identity
                          ↓
-                      SQLite
+                 SQLite schema v3
                          ↓
                FastAPI Mini-QC
                          ↓
         answer + timer + confidence
                          ↓
                 persisted attempt
+                         +
+         optional minimal study_context
+      (goal / phase / readiness / next action)
                          ↓
              first topic diagnosis
 ```
 
+M001 does **not** implement automatic Batismo phase inference, adaptive readiness scheduling, full OQF or Today. It merely prevents the first evidence from becoming contextless.
+
 The GitHub acceptance criteria live in issue **#1** and `docs/M001_FOUNDATION.md`.
+
+## Current schema learning hooks
+
+Schema v3 adds:
+- `learning_intervention` — versioned executable intervention definitions;
+- `study_context` — optional 1:1 session snapshot for Batismo phase, goal, focused/planned time, low-friction readiness/task context, intervention lineage, completion and next action.
+
+These are extension points, not an excuse to bloat M001.
 
 ## Repository map
 
 ```text
 exam-intelligence/
-├── AGENTS.md                    # hard rules for Codex/agents
-├── README.md                    # project entrypoint
-├── CONTRIBUTING.md              # engineering workflow
+├── AGENTS.md
+├── README.md
+├── CONTRIBUTING.md
 ├── THIRD_PARTY_NOTICES.md
 ├── docs/
-│   ├── README.md                # canonical documentation index
+│   ├── README.md
+│   ├── PROJECT_CONTEXT_CANON.md
+│   ├── CODEX_CONTEXT_HANDOFF.md
 │   ├── PRODUCT_VISION.md
 │   ├── PROJECT_PRINCIPLES.md
 │   ├── SYSTEM_ARCHITECTURE.md
+│   ├── LEARNING_OPERATING_SYSTEM.md
+│   ├── BATISMO_MASTERCLASS_INTEGRATION.md
+│   ├── SCIENTIFIC_LEARNING_CANON.md
+│   ├── LEARNING_TELEMETRY.md
 │   ├── DOMAIN_MODEL.md
+│   ├── DATA_MODEL.md
 │   ├── INGESTION_ENGINE.md
 │   ├── QUESTION_IDENTITY_AND_RECURRENCE.md
 │   ├── ATOMIC_TREE_AND_SYLLABUS.md
 │   ├── ASSESSMENT_ENGINE.md
 │   ├── CANDIDATE_MODEL.md
 │   ├── KNOWLEDGE_PIPELINE.md
+│   ├── EVIDENCE_FRAMEWORK.md
 │   ├── LEARNING_INTELLIGENCE.md
+│   ├── PERIODIZATION_ENGINE.md
 │   ├── DECISION_ENGINE.md
 │   ├── QUESTION_LEARNING_PACKET.md
 │   ├── BANK_DNA.md
@@ -152,40 +214,44 @@ exam-intelligence/
 │   ├── M001_FOUNDATION.md
 │   ├── ROADMAP.md
 │   ├── PROJECT_STATE.md
-│   ├── RISK_REGISTER.md
-│   ├── TESTING_STRATEGY.md
-│   ├── GLOSSARY.md
-│   ├── benchmarks/
 │   ├── research/
+│   │   └── MASTERCLASS_SCIENTIFIC_PACK.md
 │   └── adr/
-├── schemas/                     # source→staging contracts
-├── db/migrations/               # immutable ordered schema migrations
-├── src/exam_intelligence/       # application/runtime code
-├── tests/                       # unit/integration/contract tests
-└── local-data/                  # gitignored: corpora, PDFs, DB, private sources
+│       ├── 0009-batismo-masterclass-as-learning-os.md
+│       └── 0010-separate-method-efficacy-from-mechanism-truth.md
+├── schemas/
+├── db/migrations/
+├── src/exam_intelligence/
+├── tests/
+└── local-data/                  # gitignored private corpora / candidate data
 ```
 
 ## Engineering model
 
-- **GitHub** is the canonical source for code, public documentation, schemas and architecture decisions.
-- **Local filesystem** is the canonical location for private/raw corpora, paid-course sources and candidate data.
+- **GitHub** is canonical for code, public-safe derived doctrine, schemas and architecture decisions.
+- **Local filesystem** is canonical for paid/private raw corpora, source videos/transcripts and candidate DBs.
 - **Codex Cloud** handles scoped implementation tasks/PRs.
-- **VS Code + Codex** handles local execution, parsing, debugging and private data workflows.
-- Material architectural changes require an ADR and a `PROJECT_STATE.md` update.
+- **VS Code + Codex** handles local execution, parsing, debugging and private-data workflows.
+- Significant architecture changes require ADR + `PROJECT_STATE.md` update.
 
 ## Data and rights
 
-This repository is currently public. Do **not** commit API keys, candidate performance databases, paid-course videos/transcripts, proprietary question-bank dumps, restricted PDFs or other non-redistributable content. Store those under gitignored local paths and keep source hashes/manifests/provenance in the system where appropriate.
+This repository is public. Do **not** commit API keys, candidate performance DBs, paid-course videos/full transcripts, proprietary question-bank dumps, restricted PDFs or other non-redistributable content. Store them under gitignored local paths. Public docs can preserve source IDs, hashes, evidence conclusions and sufficiently abstracted operational doctrine.
 
 See `docs/DATA_GOVERNANCE.md` and `THIRD_PARTY_NOTICES.md`.
 
 ## Start here
 
-1. Read `AGENTS.md`.
-2. Read `docs/README.md` for the canonical map.
-3. Read `docs/PROJECT_STATE.md` for what is true **now**.
-4. For implementation, read the active milestone specification only after the architecture docs it references.
+For a fresh Codex/engineer:
+
+1. `docs/CODEX_CONTEXT_HANDOFF.md`
+2. `docs/PROJECT_STATE.md`
+3. `docs/PROJECT_CONTEXT_CANON.md`
+4. `docs/README.md`
+5. `docs/LEARNING_OPERATING_SYSTEM.md`
+6. `docs/BATISMO_MASTERCLASS_INTEGRATION.md`
+7. active milestone/domain docs.
 
 ---
 
-**North star:** *Observe → diagnose → choose intervention → study → test → learn from result → repeat.*
+**North star:** *Observe → diagnose → choose the right phase/intervention → study actively → test → learn from delayed result → repeat.*

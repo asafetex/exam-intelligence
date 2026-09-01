@@ -1,4 +1,4 @@
-# Data Model — Frozen V0
+# Data Model — Frozen V0 + Learning OS Hooks
 
 ## Core principles
 - Provenance and rights are first-class.
@@ -9,6 +9,10 @@
 - Taxonomy is hierarchical and versioned by scheme.
 - Candidate evidence is append-oriented and scoring must be reproducible.
 - Questions may exist without an official exam occurrence (manual/AI/user-created).
+- Learning decisions must preserve the **phase/intervention/context that existed when the session occurred**.
+- Readiness telemetry is educational context, never a clinical diagnosis.
+
+**Current schema version:** 3.
 
 ## Ingestion / provenance
 ### source_provider
@@ -84,28 +88,72 @@ Reserved for semantic recurrence; V0 can leave empty.
 ### Recurrence semantics — frozen rule
 Recurrence is evidence, not a deduplication artifact.
 
-- **Source duplicate:** the same official occurrence imported from multiple providers/files (for example API + official PDF) remains **one `question_occurrence`** with multiple source links. It must not increase recurrence.
-- **Booklet/form duplicate:** the same item appearing in multiple cadernos/forms of the **same exam event** must not be counted as independent historical recurrence. `exam_form` + occurrence reconciliation protects this.
+- **Source duplicate:** the same official occurrence imported from multiple providers/files remains **one `question_occurrence`** with multiple source links. It must not increase recurrence.
+- **Booklet/form duplicate:** the same item appearing in multiple cadernos/forms of the **same exam event** must not be counted as independent historical recurrence.
 - **True cross-exam exact repetition:** if the same canonical `question` appears in genuinely different exam events/years, preserve **one canonical question with multiple `question_occurrence` rows**. Each independent exam occurrence is a real recurrence signal.
-- **Semantic recurrence:** different questions that test the same underlying proposition/pattern may later be grouped in `question_family`; family recurrence is distinct from exact repetition.
-- **Atomic-topic recurrence:** frequency at taxonomy-node level is a third, broader signal and must not be conflated with exact-question or family recurrence.
+- **Semantic recurrence:** different questions testing the same proposition/pattern may later be grouped in `question_family`.
+- **Atomic-topic recurrence:** frequency at taxonomy-node level is a third, broader signal.
 
-Therefore, deduplication removes duplicated representations of the **same occurrence**, never legitimate repeated use of an item across different exams.
+Deduplication removes duplicated representations of the same occurrence, never legitimate repeated use across different exams.
 
-Future analytics should expose these separately, e.g. `source_count`, `exam_occurrence_count`, `exact_repeat_count`, `family_recurrence_count`, and topic-level incidence. Historical recurrence may raise priority, but never implies certainty that the item will appear again.
+Future analytics expose these separately: `source_count`, `exam_occurrence_count`, `exact_repeat_count`, `family_recurrence_count`, topic incidence.
 
 ## Assessment / candidate evidence
 ### practice_session
 Mode, target/scoring snapshot, random seed and filter snapshot.
 
 ### session_item
-The ordered set actually shown in a session, including selection reason. Supports abandoned/blank/time-expired items and reproducibility.
+Ordered items shown, including selection reason. Supports abandoned/blank/time-expired items and reproducibility.
 
 ### attempt
-Candidate response evidence linked to a session item. Stores first/final response JSON, response status, confidence, time, correctness, score and answer-key/scoring snapshot.
+Candidate response evidence. Stores first/final response, response status, confidence, time, correctness, score, exposure count and answer-key/scoring snapshot.
 
 ### error_event
-Optional diagnostic event for wrong/uncertain responses.
+Diagnostic event for wrong/uncertain responses.
+
+## Learning Operating System
+
+### learning_intervention
+Versioned registry entry for an executable learning intervention.
+
+Minimum semantics:
+- stable `intervention_id`;
+- `intervention_version`;
+- human-readable name;
+- source refs (Batismo/Masterclass/science/etc.);
+- evidence status;
+- protocol JSON;
+- active flag.
+
+Future protocol payload may include:
+- triggering diagnosis;
+- prerequisites;
+- procedure;
+- expected effect;
+- success metric;
+- delayed-validation window;
+- stop/progress criteria.
+
+### study_context
+One versioned context snapshot linked 1:1 to a `practice_session` when learning telemetry is available.
+
+Fields introduced in schema v3:
+- `phase_code`;
+- `phase_model_version`;
+- phase reasons;
+- session goal;
+- planned/focused time and start latency;
+- optional alertness / sleep quality / task clarity / perceived difficulty / frustration;
+- distraction count;
+- intervention ID/version;
+- completion state;
+- next action;
+- extensible `context_json`.
+
+This table exists now so M001 evidence does not become contextless once Batismo/Masterclass adaptive logic is implemented.
+
+### Why context is snapshotted
+A session classified `basic_20_80` under `batismo-v1` must remain reproducible after a future `batismo-v2` changes rules. Never retrospectively rewrite old phase/intervention context as though the new rule had existed historically.
 
 ## Authority Graph
 ### legal_authority
@@ -119,4 +167,16 @@ Occurrence ↔ authority version. Historical legal interpretation is never timel
 
 ## Memory
 ### memory_item / memory_review
-Reserved for later FSRS phase.
+Reserved for later FSRS phase. Memory is one intervention channel, not the universal learning model.
+
+## Future learning evidence entities
+
+Do not create these until their behavior is implemented, but preserve the concepts:
+- `intervention_instance` — prescription/execution of a technique;
+- `delayed_validation` — post-intervention unseen/equivalent outcome;
+- `cycle_review` — week/mesocycle/OQF review and decision;
+- `phase_transition` — append-oriented state transition with reason;
+- `day_context` — optional once-per-day readiness context;
+- `practitioner_outcome_record` — auditable cohort/result evidence for methods.
+
+See `LEARNING_TELEMETRY.md` and ADRs 0009–0010.

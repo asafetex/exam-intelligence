@@ -2,20 +2,89 @@
 
 ## Purpose
 
-Convert long-form study sources into a durable, source-grounded Learning Canon **without collapsing a 2–3 hour lesson into a lossy summary**.
+Convert long-form practitioner/scientific study sources into a durable, source-grounded Learning Canon **without collapsing a multi-hour lesson into a lossy summary**.
 
-The pipeline is designed for owned/private material such as OQF/Rosemara lessons, neuroscience masterclasses and Paulo Benites' method, plus public/open learning-science research.
+This pipeline remains the standard for future sources. However, Batismo 2.0 and the Masterclass Neurociência are **no longer hypothetical future ingestion targets**: their canonical packages have already been reconstructed and are now design inputs to the Learning Operating System.
+
+## Current recovered corpus state
+
+### Batismo 2.0
+Recovered canonical package based on **11 lesson transcripts** with:
+- lesson-by-lesson ingestion;
+- integrated canonical doctrine;
+- machine-readable rules/schema;
+- decision engine;
+- evidence/conflict register;
+- source manifest;
+- implementation bridge.
+
+Materially recovered concepts include:
+- intake/material validation;
+- 80/20 then 20/80 basic formation;
+- D1…Dn ranking;
+- error taxonomy;
+- mesocycle/periodization;
+- overload, continuity, specificity, individuality and variability;
+- edital urgency/surprise subject;
+- final-sprint/countdown templates;
+- optimized reading/question practice;
+- simulation/debrief.
+
+### Masterclass Neurociência
+Recovered canonical package based on **6 lesson transcripts** with:
+- integrated doctrine;
+- claims registry;
+- technique registry;
+- study protocols;
+- project integration spec;
+- assistant playbook;
+- **19-document scientific attachment audit**.
+
+Materially recovered concepts include:
+- focus/exclusion;
+- readiness/alertness/recovery;
+- task clarity;
+- challenge-skill calibration;
+- active practice;
+- feedback/progress;
+- habit architecture;
+- frustration/procrastination;
+- progressive variation;
+- non-clinical safety boundaries.
+
+### Scientific pack
+The 19-document pack has already been audited for source integrity and permitted inference. At least two artifacts demonstrated why content-level verification is mandatory: one source was mislabeled relative to its actual content and another was only a placeholder rather than a usable primary article.
+
+Derived public-safe synthesis lives in:
+- `research/MASTERCLASS_SCIENTIFIC_PACK.md`;
+- `SCIENTIFIC_LEARNING_CANON.md`.
+
+### OQF protocol
+The recovered protocol has been operationalized as a 30-day behavioral/performance experiment with baseline, controlled progression, specificity and end-of-cycle reassessment—not as a magical habit/neural deadline.
+
+## Current role in architecture
+
+Batismo/Masterclass are now governed by ADR 0009:
+
+> **They are first-class Learning Operating System design authorities, not merely future RAG content.**
+
+The Knowledge Pipeline continues to preserve and extend their source lineage, while the normative product rules live in:
+- `LEARNING_OPERATING_SYSTEM.md`;
+- `BATISMO_MASTERCLASS_INTEGRATION.md`;
+- `LEARNING_INTELLIGENCE.md`;
+- `PERIODIZATION_ENGINE.md`;
+- `DECISION_ENGINE.md`.
 
 ## Core rule
 
 > **NO SOURCE → NO CANON.**
 
-Every canonical learning recommendation must preserve lineage back to source segments/pages and distinguish explicit claims from inference.
+Every canonical learning recommendation must preserve lineage back to source segments/pages or a reviewed derived rule. Explicit course claims, operational translations, scientific evidence and inference remain distinguishable.
 
 ## Source preservation
 
-For video lessons, keep:
-- immutable original video locally;
+For video lessons, keep privately/local:
+- immutable original video;
 - timestamped transcript;
 - relevant slide/frame references when visual content changes meaning;
 - source metadata/hash;
@@ -28,7 +97,7 @@ Do not reduce video to audio when slides, diagrams, screen demonstrations or vis
 Machine-friendly transcript format is JSONL, e.g.:
 
 ```json
-{"id":"oqf_neuro_01_s001","start":"00:00:00","end":"00:03:42","speaker":"Rosemara","text":"..."}
+{"id":"oqf_neuro_01_s001","start":"00:00:00","end":"00:03:42","speaker":"source_speaker","text":"..."}
 ```
 
 JSONL supports chunk processing, patching and timestamp-level citation better than one monolithic JSON document.
@@ -57,22 +126,26 @@ Every source segment must map to extracted atoms/rules or be explicitly labeled 
 ## Knowledge atom types
 
 Initial vocabulary:
-- definition
-- principle
-- claim
-- mechanism
-- protocol
-- heuristic
-- decision_rule
-- exercise
-- example
-- counterexample
-- exception
-- warning
-- metric
-- framework
-- case
-- evidence
+- definition;
+- principle;
+- claim;
+- mechanism;
+- protocol;
+- heuristic;
+- decision_rule;
+- exercise;
+- example;
+- counterexample;
+- exception;
+- warning;
+- metric;
+- framework;
+- case;
+- evidence;
+- outcome_claim;
+- guardrail;
+- conflict;
+- source_defect.
 
 Suggested fields:
 
@@ -89,58 +162,72 @@ source_id
 source_locator
 extraction_version
 confidence: explicit | inferred
+evidence_refs
+risk
 ```
 
 ## Human + machine representations
 
-- **JSONL**: atoms, segment mappings, evidence registry.
-- **Markdown**: canonical lesson/source documents and concept pages.
+- **JSONL/JSON:** atoms, segment mappings, claims, evidence/technique registries.
+- **Markdown:** canonical lesson/source documents, integration docs and concept pages.
 
-Illustrative transformation for one long lesson:
+Illustrative transformation:
 
 ```text
 3h lesson
-→ ~200 transcript segments
-→ ~120 knowledge atoms
-→ ~35 concepts
-→ ~17 operational rules
-→ protocols / examples / exceptions / evidence claims
-→ one source-grounded playbook
+→ timestamped segments
+→ exhaustive atoms
+→ concepts / conflicts
+→ operational rules
+→ techniques / protocols
+→ evidence mappings
+→ Learning OS integration
 ```
 
 Counts are not targets; preservation and operational usefulness are.
 
-## Canon structure
+## Evidence architecture
 
-Likely canonical files:
-- `OQF_CANON.md`
-- `OQF_NEUROSCIENCE_MAP.md`
-- `BENITES_CANON.md`
-- `LEARNING_CANON.md`
-- `CLAIMS_EVIDENCE_MATRIX.md`
+Do not collapse all learning evidence into a single ladder. Preserve at least:
+- practitioner protocol evidence;
+- practitioner outcome evidence;
+- scientific intervention evidence;
+- mechanism evidence;
+- candidate-local evidence.
 
-Cross-source concept pages should compare:
-- OQF position;
+A method may produce useful outcomes even when the practitioner's biological explanation is incomplete. Conversely, mechanistic plausibility does not prove exam improvement.
+
+See `EVIDENCE_FRAMEWORK.md` and ADR 0010.
+
+## Cross-source concept pages
+
+As more methods enter the system, compare:
+- Batismo/Masterclass position;
 - Benites position;
 - EARA/other practitioner position;
-- learning-science evidence;
+- direct learning-science evidence;
+- mechanistic evidence where useful;
 - convergence;
 - contradiction;
 - current operational recommendation;
-- personal validation status.
+- candidate-local validation status.
 
-## Evidence levels
+The purpose is not to flatten methods into generic advice. Preserve distinctive operational procedures and test which solves the diagnosed state best.
 
-Use a simple evidence registry:
+## Next knowledge priorities
 
-- **A** — systematic review/meta-analysis;
-- **B** — multiple converging studies;
-- **C** — isolated/limited study;
-- **D** — practitioner/expert evidence;
-- **E** — hypothesis/marketing claim.
-
-Practical approval cases and mechanistic scientific claims are separate evidence types. A method may work in practice without a practitioner's proposed mechanism being scientifically established.
+Because Batismo/Masterclass canon is already recovered, the next knowledge tasks are:
+1. preserve/import the derived machine-readable technique/claim registries locally or in Git where rights permit;
+2. map technique IDs to our `learning_intervention` registry;
+3. add auditable practitioner cohort/outcome evidence where source material exists;
+4. ingest Benites/other practitioner corpus with the same lossless method;
+5. continuously extend scientific evidence by concept rather than accumulating unstructured papers.
 
 ## Private-source rule
 
-Paid/owned course videos, full transcripts and restricted ebooks remain outside public Git. The repository stores the pipeline, schemas and redistributable derived abstractions only when rights permit.
+Paid/owned course videos, full transcripts and restricted ebooks remain outside public Git. This public repository stores:
+- schemas/pipeline code;
+- source IDs/hashes/manifests when appropriate;
+- sufficiently abstracted derived doctrine;
+- evidence mappings;
+- operational protocols that do not reproduce restricted source content.
