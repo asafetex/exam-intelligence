@@ -28,3 +28,10 @@ D010 product effectiveness must transfer to genuine official unseen items, not j
 ## Next gated action
 Review existing repo code and M001 dependencies, produce feature-to-current-component crosswalk `REUSE/WRAP/ADAPT/BUILD/HOLD` with ADR, then test one small GCM edital topic with authenticated official sources and 5–10 authorial items under independent audit.
 Do not claim this research spec is a production-ready release.
+
+
+## Reconciliation R1 addendum (2026-11-19)
+Verified that Exam Intelligence already contains substantial canonical design for Atomic Tree, exam/candidate intelligence, learning alerts and directed interventions; active M001 remains a vertical-slice foundation, not a fully implemented tutor/simulator.
+The Lab now specifies simulator blueprint (official/hybrid/challenge), user-authored question Gold, third-party licensed summaries, directed active research, defer writing/essay, course-to-tutor ports and safe local export import. The local QC Dataset Builder V2 documentation exists, but its live checkout is unverified. External domain tutors are integration candidates, not copied code. See RECONCILIATION_R1.md and other companion docs.
+Explicit unresolved ADR: optional confidence in proposed Lab UX conflicts with required pre-feedback confidence in main repo M001/AGENTS. No unilateral code/schema change.
+Git doc-only PR is draft and not merged. No runtime tests executed on this new scope. Do not overwrite PROJECT_STATE or imply the Lab is M001 Done.
