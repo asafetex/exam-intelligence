@@ -26,3 +26,12 @@ No API, crawler, new database, new learner model, audit agent or tutor bridge is
 
 ## Release history
 - `LAB-DOC-v0.1` — initial research-only specification on isolated branch. Git commit SHA(s) are the real version trace; this README does not claim CI/test PASS.
+
+
+## Reconciliation R1 (2026-11-19)
+The initial architecture has been compared to the current repository and selected external documentation. Start with:
+- RECONCILIATION_R1.md — 30-feature design/implementation crosswalk and explicit confidence/ownership conflicts.
+- SIMULATIONS_SUMMARIES_STUDY_GUIDE.md — official blueprint, scored exams, personal Gold notes, purchased summaries, directed study and later essay module.
+- LOCAL_FEDERATION_TUTOR_SCRAPER.md — safe future ports for local course ETL, tutor and approved question exports.
+- local_connectors.example.toml — inert local config scaffold, ALL providers disabled.
+No additional code, API, scraper, database, permission or protected content was imported. Source-checkout compatibility and efficacy tests are still pending.
