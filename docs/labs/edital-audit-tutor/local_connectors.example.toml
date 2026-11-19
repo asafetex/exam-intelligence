@@ -1,0 +1,30 @@
+# Example only. INERT. No auto-discovery, networking, secrets or implicit import.
+# Use private, gitignored config/local_connectors.toml after explicit owner approval.
+schema_version = "lab-connectors-v0.1"
+
+[exam_intelligence]
+enabled = false
+home_env = "EXAM_INTELLIGENCE_HOME"
+mode = "core_owner"
+
+[qc_dataset_v2]
+enabled = false
+home_env = "QC_BUILDER_V2_HOME"
+mode = "approved_local_snapshot"
+formats = ["csv", "jsonl", "parquet"]
+
+[etl_courses]
+enabled = false
+home_env = "ETL_TREINAMENTOS_HOME"
+transport = "mcp_stdio_or_python"
+mode = "approved_read_only_preview"
+
+[shared_tutor]
+enabled = false
+home_env = "AI_TUTOR_HOME"
+mode = "contract_not_verified"
+
+[federal_sheets]
+enabled = false
+mode = "references_only"
+requires = "provider_enforced_reader_and_negative_write_test"
